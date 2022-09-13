@@ -16,11 +16,6 @@
     kernel.sysctl = {
       "vm.swappiness" = 10;
     };
-    loader.raspberryPi = {
-      enable = true;
-      version = 4;
-    };
-    loader.grub.enable = false;
   };
 
   hardware.enableRedistributableFirmware = true;

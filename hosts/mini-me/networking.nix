@@ -1,4 +1,5 @@
-{ ... }:
+{ config, ... }:
+with builtins;
 let
   hostname = "mini-me";
 in {
@@ -18,8 +19,8 @@ in {
     };
     firewall = {
       enable = true;
-      allowedTCPPorts = [
-        3724  # openssh
+      allowedTCPPorts = concatLists [
+        config.services.openssh.ports
       ];
     };
   };
