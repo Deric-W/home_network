@@ -13,6 +13,27 @@
     raspberrypi-eeprom
   ];
 
+  users = {
+    mutableUsers = false;
+    users.Deric = {
+      isNormalUser = true;
+      hashedPassword = "$6$BpffeP.jPYZqkUlL$b6YDT3ix9sZRmPE6wkTLN6rQhcFatQ.PD5WEQOwC54Al/NKn/HHl0Dv8PoGpF5h5kkKNuz.2vB5J6ND3I5Ids1";
+      extraGroups = [ "wheel" ];
+      openssh.authorizedKeys.keyFiles = [
+        ./authorized_keys/Deric.pub
+      ];
+      packages = with pkgs; [
+        git
+      ];
+    };
+  };
+
+  nix.gc = {
+    automatic = true;
+    dates = "weekly";
+    options = "--delete-older-than 30d";
+  };
+
   services.openssh = {
     enable = true;
     banner = "Welcome to Mini Me\n";
@@ -36,21 +57,6 @@
       maxretry = 3
       bantime = 600
       '';
-    };
-  };
-
-  users = {
-    mutableUsers = false;
-    users.Deric = {
-      isNormalUser = true;
-      hashedPassword = "$6$BpffeP.jPYZqkUlL$b6YDT3ix9sZRmPE6wkTLN6rQhcFatQ.PD5WEQOwC54Al/NKn/HHl0Dv8PoGpF5h5kkKNuz.2vB5J6ND3I5Ids1";
-      extraGroups = [ "wheel" ];
-      openssh.authorizedKeys.keyFiles = [
-        ./authorized_keys/Deric.pub
-      ];
-      packages = with pkgs; [
-        git
-      ];
     };
   };
 }
