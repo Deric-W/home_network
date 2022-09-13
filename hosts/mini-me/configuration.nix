@@ -22,6 +22,23 @@
     passwordAuthentication = false;
   };
 
+  services.fail2ban = {
+    enable = true;
+    ignoreIP = [
+      "127.0.0.0/8"
+      "8.8.8.8"
+    ];
+    jails = {
+      sshd = ''
+      enabled = true
+      port = 3724
+      filter = sshd
+      maxretry = 3
+      bantime = 600
+      '';
+    };
+  };
+
   users = {
     mutableUsers = false;
     users.Deric = {
