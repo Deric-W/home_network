@@ -13,6 +13,9 @@
       "console=tty1"
       "cma=128M"
     ];
+    kernel.sysctl = {
+      "vm.swappiness" = 10;
+    };
     loader.raspberryPi = {
       enable = true;
       version = 4;
