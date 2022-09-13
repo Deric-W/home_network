@@ -35,7 +35,7 @@
     "/boot" = {
       device = "/dev/disk/by-label/BOOT";
       fsType="vfat";
-      options = [ "defaults" "noatime" "nofail" "noauto" ];
+      options = [ "defaults" "noatime" ];
     };
     "/var" = {
       device = "/dev/disk/by-label/data";
