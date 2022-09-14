@@ -30,6 +30,11 @@ with builtins;
           git
         ];
       };
+      users.freedns = {
+        isSystemUser = true;
+        group = "freedns";
+      };
+      groups.freedns = {};
     };
 
     nix.trustedUsers = [ "@wheel" ];

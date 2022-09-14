@@ -1,4 +1,4 @@
-{ ... }:
+{ config, ... }:
 {
   imports = [
     <sops-nix/modules/sops>
@@ -12,6 +12,8 @@
 
   sops.secrets = {
     "freedns/url" = {
+      owner = config.systemd.services.freedns.serviceConfig.User;
+      reloadUnits = [ "freedns.service" ];
       sopsFile = ./secrets/freedns.yaml;
     };
   };

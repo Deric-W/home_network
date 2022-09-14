@@ -1,4 +1,4 @@
-{ config, ... }:
+{ config, pkgs, ... }:
 with builtins;
 let
   hostname = "mini-me";
@@ -23,5 +23,24 @@ in {
         config.services.openssh.ports
       ];
     };
+  };
+
+  systemd.services.freedns = {
+    enable = true;
+    description = "FreeDNS dynamic DNS updates";
+    path = [ pkgs.curl ];
+    script = "curl -sS $(cat /run/secrets/freedns/url)";
+    serviceConfig = {
+      Type = "oneshot";
+      Restart = "on-failure";
+      User = config.users.users.freedns.name;
+    };
+    wants = [ "network-online.target" ];
+    after = [ "network-online.target" ];
+    startAt = "*-*-* *:0..59/15:00";
+  };
+
+  systemd.timers.freedns = {
+    timerConfig.RandomizedDelaySec = 30;
   };
 }
