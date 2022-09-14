@@ -4,6 +4,7 @@ with builtins;
   imports = [
     ./hardware.nix
     ./networking.nix
+    ./secrets.nix
     ../../modules/time.nix
   ];
 

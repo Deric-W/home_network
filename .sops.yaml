@@ -1,0 +1,10 @@
+keys:
+  - &user_Deric age1cu7cunvkgz7rghj0re3628p0ycwn3xr9kvw8z3f5hqyufrj53d0qru7y04
+  - &host_mini_me age18symnt0kd38geg73q25gshezjuqcjqwjemq9c2qw3wu4zky9my4qfsjvsl
+
+creation_rules:
+  - path_regex: hosts/mini-me/secrets/[^/]+\.yaml$
+    key_groups:
+    - age:
+        - *user_Deric
+        - *host_mini_me
