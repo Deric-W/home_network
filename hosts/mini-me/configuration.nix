@@ -6,6 +6,7 @@ with builtins;
     ./networking.nix
     ./secrets.nix
     ../../modules/time.nix
+    ../../services/freedns.nix
   ];
 
   config = {
@@ -30,11 +31,6 @@ with builtins;
           git
         ];
       };
-      users.freedns = {
-        isSystemUser = true;
-        group = "freedns";
-      };
-      groups.freedns = {};
     };
 
     nix.trustedUsers = [ "@wheel" ];

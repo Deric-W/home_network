@@ -3,7 +3,7 @@ keys:
   - &host_mini_me age18symnt0kd38geg73q25gshezjuqcjqwjemq9c2qw3wu4zky9my4qfsjvsl
 
 creation_rules:
-  - path_regex: hosts/mini-me/secrets/[^/]+\.yaml$
+  - path_regex: secrets/freedns\.yaml$
     key_groups:
     - age:
         - *user_Deric
