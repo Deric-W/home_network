@@ -37,12 +37,6 @@
       fsType = "ext4";
       options = [ "defaults" "noatime" ];
     };
-    "/secrets" = {
-      device = "/dev/disk/by-label/secrets";
-      fsType = "f2fs";
-      neededForBoot = true;
-      options = [ "defaults" "noatime" ];
-    };
   };
 
   swapDevices = [
