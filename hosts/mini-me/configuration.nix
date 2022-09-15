@@ -12,11 +12,14 @@ with builtins;
   config = {
     system.stateVersion = "22.05";
 
-    environment.systemPackages = with pkgs; [
-      nano
-      bashInteractive
-      raspberrypi-eeprom
-    ];
+    environment = {
+      defaultPackages = [];
+      systemPackages = with pkgs; [
+        nano
+        bashInteractive
+        raspberrypi-eeprom
+      ];
+    };
 
     users = {
       mutableUsers = false;
@@ -29,6 +32,9 @@ with builtins;
         ];
         packages = with pkgs; [
           git
+          strace
+          iotop
+          rsync
         ];
       };
     };
