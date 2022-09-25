@@ -6,7 +6,7 @@
 
   boot = {
     kernelPackages = pkgs.linuxPackages_rpi4;
-    initrd= {
+    initrd = {
       availableKernelModules = [ "usbhid" "usb_storage" ];
     };
     kernelParams = [
@@ -32,7 +32,7 @@
     };
     "/boot" = {
       device = "/dev/disk/by-label/BOOT";
-      fsType="vfat";
+      fsType = "vfat";
       options = [ "defaults" "noatime" ];
     };
     "/var" = {

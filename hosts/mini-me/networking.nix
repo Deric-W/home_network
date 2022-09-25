@@ -2,7 +2,8 @@
 with builtins;
 let
   hostname = "mini-me";
-in {
+in
+{
   networking = {
     hostName = hostname;
     defaultGateway = "192.168.0.1";

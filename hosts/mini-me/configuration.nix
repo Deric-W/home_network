@@ -13,7 +13,7 @@ with builtins;
     system.stateVersion = "22.05";
 
     environment = {
-      defaultPackages = [];
+      defaultPackages = [ ];
       systemPackages = with pkgs; [
         nano
         bashInteractive
@@ -51,7 +51,7 @@ with builtins;
       enable = true;
       banner = "Welcome to Mini Me\n";
       ports = [ 3724 ];
-      openFirewall = false;   # handled by network.nix
+      openFirewall = false; # handled by network.nix
       permitRootLogin = "no";
       passwordAuthentication = false;
     };
@@ -64,11 +64,11 @@ with builtins;
       ];
       jails = {
         sshd = ''
-        enabled = true
-        port = ${concatStringsSep "," (map toString config.services.openssh.ports)}
-        filter = sshd
-        maxretry = 3
-        bantime = 600
+          enabled = true
+          port = ${concatStringsSep "," (map toString config.services.openssh.ports)}
+          filter = sshd
+          maxretry = 3
+          bantime = 600
         '';
       };
     };

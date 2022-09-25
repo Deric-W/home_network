@@ -10,7 +10,7 @@
         isSystemUser = true;
         group = "freedns";
       };
-      groups.freedns = {};
+      groups.freedns = { };
     };
 
     systemd.services.freedns = {
