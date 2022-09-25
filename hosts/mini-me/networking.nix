@@ -6,7 +6,14 @@ in
 {
   networking = {
     hostName = hostname;
-    defaultGateway = "192.168.0.1";
+    defaultGateway = {
+      address = "192.168.0.1";
+      interface = "eth0";
+    };
+    defaultGateway6 = {
+      address = "fd00:3a10:d5ff:febc:3a10:d5ff:febc:d559";
+      interface = "eth0";
+    };
     nameservers = [ "8.8.8.8" ];
     useDHCP = false;
     interfaces.eth0 = {
