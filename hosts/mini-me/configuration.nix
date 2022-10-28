@@ -6,6 +6,7 @@ with builtins;
     ./networking.nix
     ./secrets.nix
     ../../modules/time.nix
+    ../../modules/acme.nix
     ../../services/freedns.nix
   ];
 
