@@ -10,6 +10,15 @@
     hostName = "nextcloud.thetwins.xyz";
     https = true;
     autoUpdateApps.enable = false;
+    extraAppsEnable = true;
+    extraApps = {
+      twofactor_totp = pkgs.fetchNextcloudApp {
+        name = "twofactor_totp";
+        sha256 = "59ad8feada69ef92310ac4c6e01e4343cfa24f347bca32818b864305cbfe00e2";
+        url = "https://github.com/nextcloud-releases/twofactor_totp/releases/download/v6.4.1/twofactor_totp-v6.4.1.tar.gz";
+        version = "6.4.1";
+      };
+    };
     config = {
       dbtype = "pgsql";
       dbuser = "nextcloud";
