@@ -8,6 +8,7 @@ with builtins;
     ../../modules/time.nix
     ../../modules/acme.nix
     ../../services/freedns.nix
+    ../../services/nextcloud.nix
   ];
 
   config = {
