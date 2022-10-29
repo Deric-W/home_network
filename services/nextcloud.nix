@@ -30,6 +30,12 @@
         url = "https://github.com/nextcloud-releases/contacts/releases/download/v4.2.2/contacts-v4.2.2.tar.gz";
         version = "4.2.2";
       };
+      maps = pkgs.fetchNextcloudApp {
+        name = "maps";
+        sha256 = "e9d4cd3461cabbdecb66f46f83be39d9ed9fc3eda5a14721b51bafdf5bcb2206";
+        url = "https://github.com/nextcloud/maps/releases/download/v0.2.1/maps-0.2.1.tar.gz";
+        version = "0.2.1";
+      };
     };
     config = {
       dbtype = "pgsql";
