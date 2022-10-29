@@ -50,6 +50,7 @@
       dbname = "nextcloud";
       adminuser = "admin";
       adminpassFile = "/run/secrets/nextcloud/adminpass";
+      defaultPhoneRegion = "DE";
     };
   };
 
