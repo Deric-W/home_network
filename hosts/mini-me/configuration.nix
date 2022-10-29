@@ -1,5 +1,4 @@
 { pkgs, config, ... }:
-with builtins;
 {
   imports = [
     ./hardware.nix
@@ -7,6 +6,7 @@ with builtins;
     ./secrets.nix
     ../../modules/time.nix
     ../../modules/acme.nix
+    ../../services/sshd.nix
     ../../services/freedns.nix
     ../../services/nextcloud.nix
   ];
@@ -47,32 +47,6 @@ with builtins;
       automatic = true;
       dates = "weekly";
       options = "--delete-older-than 30d";
-    };
-
-    services.openssh = {
-      enable = true;
-      banner = "Welcome to Mini Me\n";
-      ports = [ 3724 ];
-      openFirewall = false; # handled by network.nix
-      permitRootLogin = "no";
-      passwordAuthentication = false;
-    };
-
-    services.fail2ban = {
-      enable = true;
-      ignoreIP = [
-        "127.0.0.0/8"
-        "8.8.8.8"
-      ];
-      jails = {
-        sshd = ''
-          enabled = true
-          port = ${concatStringsSep "," (map toString config.services.openssh.ports)}
-          filter = sshd
-          maxretry = 3
-          bantime = 600
-        '';
-      };
     };
   };
 }
