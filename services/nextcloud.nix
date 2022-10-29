@@ -36,6 +36,12 @@
         url = "https://github.com/nextcloud/maps/releases/download/v0.2.1/maps-0.2.1.tar.gz";
         version = "0.2.1";
       };
+      forms = pkgs.fetchNextcloudApp {
+        name = "forms";
+        sha256 = "e8cd5fb59d6ae32394b0a0d101232620fb237a91f9011af643db3c9f541c04af";
+        url = "https://github.com/nextcloud/forms/releases/download/v2.5.1/forms.tar.gz";
+        version = "2.5.1";
+      };
     };
     config = {
       dbtype = "pgsql";
