@@ -24,6 +24,12 @@
         url = "https://github.com/nextcloud-releases/calendar/releases/download/v3.5.2/calendar-v3.5.2.tar.gz";
         version = "3.5.2";
       };
+      contacts = pkgs.fetchNextcloudApp {
+        name = "contacts";
+        sha256 = "1938b266c5070573e0435ec31c08a19add96fd99c08c3c1f8309ee8e447093a0";
+        url = "https://github.com/nextcloud-releases/contacts/releases/download/v4.2.2/contacts-v4.2.2.tar.gz";
+        version = "4.2.2";
+      };
     };
     config = {
       dbtype = "pgsql";
