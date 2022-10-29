@@ -18,6 +18,12 @@
         url = "https://github.com/nextcloud-releases/twofactor_totp/releases/download/v6.4.1/twofactor_totp-v6.4.1.tar.gz";
         version = "6.4.1";
       };
+      calendar = pkgs.fetchNextcloudApp {
+        name = "calendar";
+        sha256 = "d6edc166d63204e39135c0e9f00c0f7a6875db89d34a936e16b513c749ac8b8d";
+        url = "https://github.com/nextcloud-releases/calendar/releases/download/v3.5.2/calendar-v3.5.2.tar.gz";
+        version = "3.5.2";
+      };
     };
     config = {
       dbtype = "pgsql";
