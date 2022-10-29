@@ -28,9 +28,6 @@ in
     };
     firewall = {
       enable = true;
-      allowedTCPPorts = concatLists [
-        config.services.openssh.ports
-      ];
     };
   };
 }
