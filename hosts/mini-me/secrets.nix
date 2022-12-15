@@ -10,7 +10,7 @@ with builtins;
       device = "/dev/disk/by-label/secrets";
       fsType = "f2fs";
       neededForBoot = true;
-      options = [ "defaults" "noatime" ];
+      options = [ "defaults" "noatime" "ro" ];
     };
 
     services.openssh.hostKeys = [
