@@ -6,7 +6,6 @@
     ./secrets.nix
     ../../modules/time.nix
     ../../modules/acme.nix
-    ../../services/smart.nix
     ../../services/sshd.nix
     ../../services/freedns.nix
     ../../services/nextcloud.nix

@@ -64,4 +64,22 @@
     enable = true;
     interval = "weekly";
   };
+
+  services.smartd = {
+    enable = true;
+    autodetect = true;
+    devices = [
+      {
+        device = "/dev/disk/by-label/root";
+        options = "-d sat";
+      }
+      {
+        device = "/dev/disk/by-label/backup";
+        options = "-d sat";
+      }
+    ];
+    notifications = {
+      wall.enable = true;
+    };
+  };
 }
