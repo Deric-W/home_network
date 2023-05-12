@@ -1,14 +1,10 @@
 { pkgs, config, ... }:
 {
   imports = [
-    ./hardware.nix
-    ./networking.nix
-    ./secrets.nix
-    ../../modules/time.nix
-    ../../modules/acme.nix
-    ../../services/sshd.nix
-    ../../services/freedns.nix
-    ../../services/nextcloud.nix
+    ./modules/hardware.nix
+    ./modules/networking.nix
+    ./modules/secrets.nix
+    ./modules/time.nix
   ];
 
   config = {
@@ -42,12 +38,14 @@
       };
     };
 
-    nix.trustedUsers = [ "@wheel" ];
-
-    nix.gc = {
-      automatic = true;
-      dates = "weekly";
-      options = "--delete-older-than 30d";
+    nix = {
+      trustedUsers = [ "@wheel" ];
+      gc = {
+        automatic = true;
+        dates = "weekly";
+        options = "--delete-older-than 30d";
+      };
+      settings.experimental-features = [ "nix-command" "flakes" ];
     };
   };
 }

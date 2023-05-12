@@ -1,9 +1,5 @@
 { pkgs, config, ... }:
 {
-  imports = [
-    <sops-nix/modules/sops>
-  ];
-
   config = {
     users = {
       users.freedns = {
