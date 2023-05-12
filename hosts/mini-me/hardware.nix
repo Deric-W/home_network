@@ -51,6 +51,11 @@
         blkDev = "/dev/disk/by-partlabel/vault";
       };
     };
+    "/backup" = {
+      device = "/dev/disk/by-label/backup";
+      fsType = "btrfs";
+      options = [ "defaults" "noatime" ];
+    };
   };
 
   swapDevices = [
