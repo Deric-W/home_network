@@ -1,9 +1,5 @@
 { pkgs, ... }:
 {
-  imports = [
-    <nixos-hardware/raspberry-pi/4>
-  ];
-
   boot = {
     kernelPackages = pkgs.linuxPackages_rpi4;
     initrd = {

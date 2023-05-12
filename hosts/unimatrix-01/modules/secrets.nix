@@ -1,10 +1,6 @@
 { config, ... }:
 with builtins;
 {
-  imports = [
-    <sops-nix/modules/sops>
-  ];
-
   config = {
     fileSystems."/secrets" = {
       device = "/dev/disk/by-label/secrets";
