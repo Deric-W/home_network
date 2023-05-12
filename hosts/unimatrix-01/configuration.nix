@@ -8,7 +8,7 @@
   ];
 
   config = {
-    system.stateVersion = "22.05";
+    system.stateVersion = "22.11";
 
     environment = {
       defaultPackages = [ ];
@@ -39,13 +39,15 @@
     };
 
     nix = {
-      trustedUsers = [ "@wheel" ];
+      settings = {
+        trusted-users = [ "@wheel" ];
+        experimental-features = [ "nix-command" "flakes" ];
+      };
       gc = {
         automatic = true;
         dates = "weekly";
         options = "--delete-older-than 30d";
       };
-      settings.experimental-features = [ "nix-command" "flakes" ];
     };
   };
 }
