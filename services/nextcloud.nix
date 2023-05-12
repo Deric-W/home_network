@@ -79,4 +79,32 @@
   };
 
   networking.firewall.allowedTCPPorts = [ 80 443 ];
+
+  services.fail2ban = {
+    enable = true;
+    ignoreIP = [
+      "127.0.0.0/8"
+      "8.8.8.8"
+    ];
+    jails = {
+      nextcloud = ''
+        enabled = true
+        port = 80,443
+        filter = nextcloud[journalmatch=_SYSTEMD_UNIT=phpfpm-nextcloud.service]
+        maxretry = 3
+        bantime = 600
+      '';
+    };
+  };
+  environment.etc."fail2ban/filter.d/nextcloud.conf".text = ''
+    [INCLUDES]
+    before = common.conf
+    after = nextcloud.local
+
+    [Definition]
+    _groupsre = (?:(?:,?\s*"\w+":(?:"[^"]+"|\w+))*)
+    failregex = ^%(__prefix_line)s\{%(_groupsre)s,?\s*"remoteAddr":"<HOST>"%(_groupsre)s,?\s*"message":"Login failed:
+                ^\{%(_groupsre)s,?\s*"remoteAddr":"<HOST>"%(_groupsre)s,?\s*"message":"Trusted domain error.
+    datepattern = ,?\s*"time"\s*:\s*"%%Y-%%m-%%d[T ]%%H:%%M:%%S(%%z)?"
+  '';
 }
