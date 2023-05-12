@@ -27,7 +27,7 @@
   fileSystems = {
     "/" = {
       device = "/dev/disk/by-label/root";
-      fsType = "ext4";
+      fsType = "btrfs";
       options = [ "defaults" "noatime" ];
     };
     "/boot" = {
@@ -37,19 +37,24 @@
     };
     "/var" = {
       device = "/dev/disk/by-label/data";
-      fsType = "ext4";
+      fsType = "btrfs";
       options = [ "defaults" "noatime" ];
     };
     "/vault" = {
       device = "/dev/mapper/vault";
-      fsType = "ext4";
+      fsType = "btrfs";
       options = [ "defaults" "noatime" ];
       encrypted = {
         enable = true;
         label = "vault";
         keyFile = "/mnt-root/secrets/vault.key";
-        blkDev = "/dev/disk/by-id/usb-TOSHIBA_External_USB_3.0_20180716002134C-0:0-part5";
+        blkDev = "/dev/disk/by-partlabel/vault";
       };
+    };
+    "/backup" = {
+      device = "/dev/disk/by-label/backup";
+      fsType = "btrfs";
+      options = [ "defaults" "noatime" ];
     };
   };
 
@@ -63,5 +68,23 @@
   services.fstrim = {
     enable = true;
     interval = "weekly";
+  };
+
+  services.smartd = {
+    enable = true;
+    autodetect = true;
+    devices = [
+      {
+        device = "/dev/disk/by-label/root";
+        options = "-d sat";
+      }
+      {
+        device = "/dev/disk/by-label/backup";
+        options = "-d sat";
+      }
+    ];
+    notifications = {
+      wall.enable = true;
+    };
   };
 }
