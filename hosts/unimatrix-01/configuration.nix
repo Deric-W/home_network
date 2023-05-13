@@ -5,6 +5,8 @@
     ./modules/networking.nix
     ./modules/secrets.nix
     ./modules/time.nix
+    ./modules/backup.nix
+    ./modules/nextcloud.nix
   ];
 
   config = {

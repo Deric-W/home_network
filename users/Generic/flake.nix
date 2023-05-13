@@ -27,6 +27,7 @@
               iotop
               rsync
               smartmontools
+              borgbackup
             ];
           };
           nix.settings.trusted-users = [ "Generic" ];

@@ -20,7 +20,6 @@
         generic.nixosModules.user
         generic.nixosModules.adminUser
         ../../services/freedns.nix
-        ../../services/nextcloud.nix
         ../../services/sshd.nix
       ];
     };
