@@ -19,30 +19,10 @@
       ];
     };
 
-    users = {
-      mutableUsers = false;
-      users.Deric = {
-        isNormalUser = true;
-        hashedPassword = "$6$BpffeP.jPYZqkUlL$b6YDT3ix9sZRmPE6wkTLN6rQhcFatQ.PD5WEQOwC54Al/NKn/HHl0Dv8PoGpF5h5kkKNuz.2vB5J6ND3I5Ids1";
-        extraGroups = [ "wheel" ];
-        openssh.authorizedKeys.keyFiles = [
-          ./authorized_keys/Deric.pub
-        ];
-        packages = with pkgs; [
-          git
-          strace
-          iotop
-          rsync
-          smartmontools
-        ];
-      };
-    };
+    users.mutableUsers = false;
 
     nix = {
-      settings = {
-        trusted-users = [ "@wheel" ];
-        experimental-features = [ "nix-command" "flakes" ];
-      };
+      settings.experimental-features = [ "nix-command" "flakes" ];
       gc = {
         automatic = true;
         dates = "weekly";
