@@ -6,6 +6,7 @@
       package = pkgs.nextcloud25;
       hostName = "nextcloud.thetwins.xyz";
       https = true;
+      maxUploadSize = "2G";
       autoUpdateApps.enable = false;
       extraAppsEnable = true;
       extraApps = {
@@ -38,6 +39,16 @@
         adminuser = "admin";
         adminpassFile = config.sops.secrets."nextcloud/adminpass".path;
         defaultPhoneRegion = "DE";
+      };
+      caching.redis = true;
+      extraOptions = {
+        "memcache.local" = "\\OC\\Memcache\\Redis";
+        "memcache.locking" = "\\OC\\Memcache\\Redis";
+        redis = {
+          host = config.services.redis.servers.nextcloud.unixSocket;
+          port = 0;
+          dbindex = 0;
+        };
       };
     };
 
@@ -77,6 +88,13 @@
     systemd.services."nextcloud-setup" = {
       requires = [ "postgresql.service" ];
       after = [ "postgresql.service" ];
+    };
+
+    services.redis.servers.nextcloud = {
+      enable = true;
+      user = "nextcloud";
+      save = [];
+      databases = 1;
     };
 
     networking.firewall.allowedTCPPorts = [ 80 443 ];
