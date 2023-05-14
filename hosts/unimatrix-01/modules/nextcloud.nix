@@ -86,8 +86,8 @@
     };
 
     systemd.services."nextcloud-setup" = {
-      requires = [ "postgresql.service" ];
-      after = [ "postgresql.service" ];
+      requires = [ "postgresql.service" "redis-nextcloud.service" ];
+      after = [ "postgresql.service" "redis-nextcloud.service" ];
     };
 
     services.redis.servers.nextcloud = {
