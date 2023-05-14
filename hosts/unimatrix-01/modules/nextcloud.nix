@@ -151,7 +151,7 @@
           nextcloud-occ maintenance:mode --on
           trap on_exit EXIT
 
-          home_archive="${config.networking.hostName}-nextcloud-$(date "+%Y-%m-%dT%H:%M:%S")-home"
+          home_archive="${config.networking.hostName}-nextcloud-home-$(date "+%Y-%m-%dT%H:%M:%S")"
           borg create \
             --compression lz4 \
             "::''${home_archive}.failed" \
@@ -164,7 +164,7 @@
 
           set -o pipefail
           export PGPASSWORD="$(cat ${config.services.nextcloud.config.adminpassFile})"
-          db_archive="${config.networking.hostName}-nextcloud-$(date "+%Y-%m-%dT%H:%M:%S")-db"
+          db_archive="${config.networking.hostName}-nextcloud-db-$(date "+%Y-%m-%dT%H:%M:%S")"
           pg_dump ${config.services.nextcloud.config.dbname} \
             -h ${config.services.nextcloud.config.dbhost} \
             -U ${config.services.nextcloud.config.dbuser} \
@@ -179,7 +179,15 @@
             "$db_archive"
         
           borg prune \
-            --glob-archives "${config.networking.hostName}-nextcloud-*" \
+            --glob-archives "${config.networking.hostName}-nextcloud-home-*" \
+            --keep-within 1H \
+            --keep-daily 7 \
+            --keep-weekly 4 \
+            --keep-monthly 6 \
+            --keep-yearly 2
+
+          borg prune \
+            --glob-archives "${config.networking.hostName}-nextcloud-db-*" \
             --keep-within 1H \
             --keep-daily 7 \
             --keep-weekly 4 \
