@@ -148,8 +148,8 @@
             borg init --encryption none --storage-quota 1T
           fi
 
-          nextcloud-occ maintenance:mode --on
           trap on_exit EXIT
+          nextcloud-occ maintenance:mode --on
 
           home_archive="${config.networking.hostName}-nextcloud-home-$(date "+%Y-%m-%dT%H:%M:%S")"
           borg create \
@@ -177,6 +177,9 @@
           borg rename \
             "::''${db_archive}.failed" \
             "$db_archive"
+
+          nextcloud-occ maintenance:mode --off
+          trap - EXIT
         
           borg prune \
             --glob-archives "${config.networking.hostName}-nextcloud-home-*" \
@@ -193,6 +196,8 @@
             --keep-weekly 4 \
             --keep-monthly 6 \
             --keep-yearly 2
+
+          borg compact
         '';
         requires = [ "postgresql.service" ];
         after = [ "postgresql.service" ];
