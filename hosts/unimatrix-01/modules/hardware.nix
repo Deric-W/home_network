@@ -1,4 +1,7 @@
 { pkgs, ... }:
+let
+  btrfs-options = [ "defaults" "noatime" "nodiscard" "barrier"];
+in
 {
   boot = {
     kernelPackages = pkgs.linuxPackages_rpi4;
@@ -24,7 +27,7 @@
     "/" = {
       device = "/dev/disk/by-label/root";
       fsType = "btrfs";
-      options = [ "defaults" "noatime" ];
+      options = btrfs-options;
     };
     "/boot" = {
       device = "/dev/disk/by-label/BOOT";
@@ -34,12 +37,12 @@
     "/var" = {
       device = "/dev/disk/by-label/data";
       fsType = "btrfs";
-      options = [ "defaults" "noatime" ];
+      options = btrfs-options;
     };
     "/vault" = {
       device = "/dev/mapper/vault";
       fsType = "btrfs";
-      options = [ "defaults" "noatime" ];
+      options = btrfs-options;
       encrypted = {
         enable = true;
         label = "vault";
@@ -50,7 +53,7 @@
     "/backup" = {
       device = "/dev/disk/by-label/backup";
       fsType = "btrfs";
-      options = [ "defaults" "noatime" ];
+      options = btrfs-options;
     };
   };
 
@@ -61,10 +64,9 @@
     }
   ];
 
-  services.fstrim = {
-    enable = true;
-    interval = "weekly";
-  };
+  services.fstrim.enable = true;
+
+  services.btrfs.autoScrub.enable = true;
 
   services.smartd = {
     enable = true;
