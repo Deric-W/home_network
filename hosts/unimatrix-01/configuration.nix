@@ -7,6 +7,7 @@
     ./modules/time.nix
     ./modules/backup.nix
     ./modules/nextcloud.nix
+    ./modules/printing.nix
   ];
 
   config = {
