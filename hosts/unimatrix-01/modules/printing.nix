@@ -21,9 +21,15 @@
       "192.168.0.*"
     ];
   };
+  config.services.saned = {
+    enable = true;
+    extraConfig = ''
+      192.168.0.0/24
+    '';
+  };
   config.networking.firewall = {
     allowedUDPPorts = [ 631 ];
-    allowedTCPPorts = [ 631 ];
+    allowedTCPPorts = [ 631 6566 ];
   };
   config.services.avahi = {
     enable = true;
