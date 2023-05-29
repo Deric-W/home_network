@@ -2,7 +2,9 @@
   description = "RPI4 home server";
 
   inputs = {
-    nixos-hardware.url = "nixos-hardware";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-22.11";
+    # unpin when updating to kernel 6.1
+    nixos-hardware.url = "github:NixOS/nixos-hardware/b3a8d308a13390df35b198d4db36a654ec29e25a";
     sops-nix = {
       url = "github:Mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs";
