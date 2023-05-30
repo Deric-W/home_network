@@ -15,10 +15,14 @@
     enable = true;
     browsing = true;
     defaultShared = true;
+    # prevent remote configuration until 
+    # there can be a separate allowFrom
+    # for administration
+    webInterface = false;
     listenAddresses = [ "*:631" ];
     allowFrom = [
       "localhost"
-      "192.168.0.*"
+      "@LOCAL"
     ];
   };
   config.services.saned = {
