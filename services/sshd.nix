@@ -7,8 +7,10 @@ with builtins;
       banner = "Welcome to ${config.networking.hostName}\n";
       ports = [ 3724 ];
       openFirewall = true;
-      permitRootLogin = "no";
-      passwordAuthentication = false;
+      settings = {
+        PermitRootLogin = "no";
+        PasswordAuthentication = false;
+      };
     };
 
     services.fail2ban = {

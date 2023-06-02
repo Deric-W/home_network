@@ -26,7 +26,7 @@ in
     enable = true;
     overlays = [{
       name = "gpio-fan-overlay";
-      # modified https://github.com/raspberrypi/linux/blob/rpi-5.15.y/arch/arm/boot/dts/overlays/gpio-fan-overlay.dts
+      # modified https://github.com/raspberrypi/linux/blob/rpi-6.1.y/arch/arm/boot/dts/overlays/gpio-fan-overlay.dts
       dtsText = ''
         /dts-v1/;
         /plugin/;
@@ -49,23 +49,32 @@ in
 
           fragment@1 {
             target = <&cpu_thermal>;
-            polling-delay = <2000>;	/* milliseconds */
             __overlay__ {
-              trips {
-                cpu_hot: trip-point@0 {
-                  temperature = <60000>;	/* (millicelsius) Fan started at 60°C */
-                  hysteresis = <10000>;	/* (millicelsius) Fan stopped at 50°C */
-                  type = "active";
-                };
-              };
-              cooling-maps {
-                map0 {
-                  trip = <&cpu_hot>;
-                  cooling-device = <&fan0 1 1>;
-                };
+              polling-delay = <2000>;	/* milliseconds */
+            };
+          };
+
+          fragment@2 {
+            target = <&thermal_trips>;
+            __overlay__ {
+              cpu_hot: trip-point@0 {
+                temperature = <60000>;	/* (millicelsius) Fan started at 60°C */
+                hysteresis = <10000>;	/* (millicelsius) Fan stopped at 50°C */
+                type = "active";
               };
             };
           };
+
+          fragment@3 {
+            target = <&cooling_maps>;
+            __overlay__ {
+              map0 {
+                trip = <&cpu_hot>;
+                cooling-device = <&fan0 1 1>;
+              };
+            };
+          };
+
           __overrides__ {
             gpiopin = <&fan0>,"gpios:4", <&fan0>,"brcm,pins:0";
             temp = <&cpu_hot>,"temperature:0";
