@@ -3,20 +3,16 @@
   config = {
     services.nextcloud = {
       enable = true;
-      package = pkgs.nextcloud25;
+      package = pkgs.nextcloud26;
       hostName = "nextcloud.thetwins.xyz";
       https = true;
       maxUploadSize = "2G";
       autoUpdateApps.enable = false;
       extraAppsEnable = true;
       extraApps = {
-        twofactor_totp = pkgs.fetchNextcloudApp {
-          sha256 = "189cwq78dqanqxhsl69dahdkh230zhz2r285lvf0b7pg0sxcs0yc";
-          url = "https://github.com/nextcloud-releases/twofactor_totp/releases/download/v6.4.1/twofactor_totp-v6.4.1.tar.gz";
-        };
         calendar = pkgs.fetchNextcloudApp {
-          sha256 = "0xhrpadzz73rdjyk4y1xm5hwc6k104rlpp9nmw08pq8phpfs12qa";
-          url = "https://github.com/nextcloud-releases/calendar/releases/download/v4.3.3/calendar-v4.3.3.tar.gz";
+          sha256 = "0pj1h86kdnckzfrn13hllgps4wa921z4s24pg5d2666fqx89rwrv";
+          url = "https://github.com/nextcloud-releases/calendar/releases/download/v4.3.4/calendar-v4.3.4.tar.gz";
         };
         contacts = pkgs.fetchNextcloudApp {
           sha256 = "1rdql3m7pg9m044hppyrm3xw329y8h0pzwcmpcinjbjs0vqjssxk";
@@ -27,8 +23,8 @@
           url = "https://github.com/nextcloud/maps/releases/download/v1.0.2/maps-1.0.2.tar.gz";
         };
         forms = pkgs.fetchNextcloudApp {
-          sha256 = "1hjdwhhx5p9n185b5v0vbxhnarcm83r52hsqq7qwfcfpy86axafr";
-          url = "https://github.com/nextcloud/forms/releases/download/v3.2.0/forms.tar.gz";
+          sha256 = "0jfnidmx93k0z923m3p3bi8qv46j875cpnc60hlpxvcl35zbb2rl";
+          url = "https://github.com/nextcloud-releases/forms/releases/download/v3.3.0/forms-v3.3.0.tar.gz";
         };
       };
       config = {
