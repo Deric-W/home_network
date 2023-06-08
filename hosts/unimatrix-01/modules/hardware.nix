@@ -21,7 +21,10 @@ in
   };
 
   hardware.enableRedistributableFirmware = true;
-  hardware.raspberry-pi."4".fkms-3d.enable = true;
+  hardware.raspberry-pi."4" = {
+    fkms-3d.enable = true;
+    apply-overlays-dtmerge.enable = true;
+  };
   hardware.deviceTree = {
     enable = true;
     overlays = [{
