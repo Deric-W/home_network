@@ -21,9 +21,11 @@ in
   };
 
   hardware.enableRedistributableFirmware = true;
-  hardware.raspberry-pi."4".fkms-3d.enable = true;
+  # causes udev timeouts during boot
+  #hardware.raspberry-pi."4".fkms-3d.enable = true;
   hardware.deviceTree = {
     enable = true;
+    # to prevent build failure with compute module 4 trees
     filter = "bcm2711-rpi-4*.dtb";
     overlays = [{
       name = "gpio-fan-overlay";
