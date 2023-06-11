@@ -26,6 +26,10 @@
           sha256 = "0jfnidmx93k0z923m3p3bi8qv46j875cpnc60hlpxvcl35zbb2rl";
           url = "https://github.com/nextcloud-releases/forms/releases/download/v3.3.0/forms-v3.3.0.tar.gz";
         };
+        polls = pkgs.fetchNextcloudApp {
+          sha256 = "10906dzlswi352gbshvh86h6yyhwm8b54nkzqgwzpbg9h6yqp1w9";
+          url = "https://github.com/nextcloud/polls/releases/download/v5.0.5/polls.tar.gz";
+        };
       };
       config = {
         dbtype = "pgsql";
