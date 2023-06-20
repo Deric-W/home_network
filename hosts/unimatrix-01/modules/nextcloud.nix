@@ -30,6 +30,14 @@
           sha256 = "10906dzlswi352gbshvh86h6yyhwm8b54nkzqgwzpbg9h6yqp1w9";
           url = "https://github.com/nextcloud/polls/releases/download/v5.0.5/polls.tar.gz";
         };
+        notify_push = pkgs.fetchNextcloudApp {
+          sha256 = "0hdxnkar2ibis5p0gp3yr1i6894la9wxq4pzrbqdrq2cgvsj6a18";
+          url = "https://github.com/nextcloud-releases/notify_push/releases/download/v0.6.3/notify_push-v0.6.3.tar.gz";
+        };
+      };
+      notify_push = {
+        enable = true;
+        bendDomainToLocalhost = true;
       };
       config = {
         dbtype = "pgsql";
