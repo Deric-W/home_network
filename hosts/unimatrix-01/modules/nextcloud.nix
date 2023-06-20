@@ -51,8 +51,9 @@
         };
         mail_domain = "gmx.de";
         mail_from_address = "robo-eric";
-        mail_smtphost = "mail.gmx.net:587";
-        mail_smtpsecure = "ssl";
+        mail_smtphost = "mail.gmx.net";
+        mail_smtpport = 587;
+        mail_smtpsecure = "tls";
         mail_smtpauth = true;
         mail_smtpname = "robo-eric@gmx.de";
         mail_smtptimeout = 30;
