@@ -3,7 +3,7 @@
   config = {
     services.nextcloud = {
       enable = true;
-      package = pkgs.nextcloud26;
+      package = pkgs.nextcloud27;
       hostName = "nextcloud.thetwins.xyz";
       https = true;
       maxUploadSize = "2G";
@@ -11,24 +11,24 @@
       extraAppsEnable = true;
       extraApps = {
         calendar = pkgs.fetchNextcloudApp {
-          sha256 = "0pj1h86kdnckzfrn13hllgps4wa921z4s24pg5d2666fqx89rwrv";
-          url = "https://github.com/nextcloud-releases/calendar/releases/download/v4.3.4/calendar-v4.3.4.tar.gz";
+          sha256 = "00m00jm6x6kkwbn8v7v0yjmr7m5isizsyll4nqy409c1jvmhq2rq";
+          url = "https://github.com/nextcloud-releases/calendar/releases/download/v4.4.3/calendar-v4.4.3.tar.gz";
         };
         contacts = pkgs.fetchNextcloudApp {
-          sha256 = "1rdql3m7pg9m044hppyrm3xw329y8h0pzwcmpcinjbjs0vqjssxk";
-          url = "https://github.com/nextcloud-releases/contacts/releases/download/v5.2.0/contacts-v5.2.0.tar.gz";
+          sha256 = "0f9k3glw6kfj4ms9bxw5zcv0ygfg0jdhdn9cdzq8a3d8i07v0vb8";
+          url = "https://github.com/nextcloud-releases/contacts/releases/download/v5.3.2/contacts-v5.3.2.tar.gz";
         };
         maps = pkgs.fetchNextcloudApp {
-          sha256 = "04mgk4g2262m3xkyrskq66vq8784pvv183ff1h3d6yilpy4ysjfy";
-          url = "https://github.com/nextcloud/maps/releases/download/v1.0.2/maps-1.0.2.tar.gz";
+          sha256 = "12dg1bklv2jhmj5dnz4ram6zvgf8kipfz77g1lcn77fyhzqw6y1z";
+          url = "https://github.com/nextcloud/maps/releases/download/v1.1.0/maps-1.1.0.tar.gz";
         };
         forms = pkgs.fetchNextcloudApp {
-          sha256 = "0jfnidmx93k0z923m3p3bi8qv46j875cpnc60hlpxvcl35zbb2rl";
-          url = "https://github.com/nextcloud-releases/forms/releases/download/v3.3.0/forms-v3.3.0.tar.gz";
+          sha256 = "155z87wyv2p06c3kpy9zaw6qf5s7s0ah4wfw022s4cc21i3rcwxv";
+          url = "https://github.com/nextcloud-releases/forms/releases/download/v3.3.1/forms-v3.3.1.tar.gz";
         };
         polls = pkgs.fetchNextcloudApp {
-          sha256 = "10906dzlswi352gbshvh86h6yyhwm8b54nkzqgwzpbg9h6yqp1w9";
-          url = "https://github.com/nextcloud/polls/releases/download/v5.0.5/polls.tar.gz";
+          sha256 = "0w41zxbf8kqnr5hwlf6z5bymwz1d0vbgg5ippc72a8rwma7hlyay";
+          url = "https://github.com/nextcloud/polls/releases/download/v5.2.0/polls.tar.gz";
         };
         notify_push = pkgs.fetchNextcloudApp {
           sha256 = "0hdxnkar2ibis5p0gp3yr1i6894la9wxq4pzrbqdrq2cgvsj6a18";
