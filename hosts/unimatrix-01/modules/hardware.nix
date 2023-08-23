@@ -21,8 +21,7 @@ in
   };
 
   hardware.enableRedistributableFirmware = true;
-  # causes udev timeouts during boot
-  #hardware.raspberry-pi."4".fkms-3d.enable = true;
+  hardware.raspberry-pi."4".fkms-3d.enable = true;
   hardware.deviceTree = {
     enable = true;
     # to prevent build failure with compute module 4 trees
