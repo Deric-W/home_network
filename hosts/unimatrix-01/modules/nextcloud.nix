@@ -11,24 +11,24 @@
       extraAppsEnable = true;
       extraApps = {
         calendar = pkgs.fetchNextcloudApp {
-          sha256 = "00m00jm6x6kkwbn8v7v0yjmr7m5isizsyll4nqy409c1jvmhq2rq";
-          url = "https://github.com/nextcloud-releases/calendar/releases/download/v4.4.3/calendar-v4.4.3.tar.gz";
+          sha256 = "14jf0vrjkscz6j2xsf2xn18v3vwqkd8qi47iyyz2wlzdgi25zl6v";
+          url = "https://github.com/nextcloud-releases/calendar/releases/download/v4.5.1/calendar-v4.5.1.tar.gz";
         };
         contacts = pkgs.fetchNextcloudApp {
-          sha256 = "0f9k3glw6kfj4ms9bxw5zcv0ygfg0jdhdn9cdzq8a3d8i07v0vb8";
-          url = "https://github.com/nextcloud-releases/contacts/releases/download/v5.3.2/contacts-v5.3.2.tar.gz";
+          sha256 = "1pz2px5amk3byn4pq86cyyjv4hrqhsjz61xfm7cl7z8qfckqfhi2";
+          url = "https://github.com/nextcloud-releases/contacts/releases/download/v5.4.2/contacts-v5.4.2.tar.gz";
         };
         maps = pkgs.fetchNextcloudApp {
-          sha256 = "12dg1bklv2jhmj5dnz4ram6zvgf8kipfz77g1lcn77fyhzqw6y1z";
-          url = "https://github.com/nextcloud/maps/releases/download/v1.1.0/maps-1.1.0.tar.gz";
+          sha256 = "1rcmqnm5364h5gaq1yy6b6d7k17napgn0yc9ymrnn75bps9s71v9";
+          url = "https://github.com/nextcloud/maps/releases/download/v1.1.1/maps-1.1.1.tar.gz";
         };
         forms = pkgs.fetchNextcloudApp {
           sha256 = "155z87wyv2p06c3kpy9zaw6qf5s7s0ah4wfw022s4cc21i3rcwxv";
           url = "https://github.com/nextcloud-releases/forms/releases/download/v3.3.1/forms-v3.3.1.tar.gz";
         };
         polls = pkgs.fetchNextcloudApp {
-          sha256 = "0w41zxbf8kqnr5hwlf6z5bymwz1d0vbgg5ippc72a8rwma7hlyay";
-          url = "https://github.com/nextcloud/polls/releases/download/v5.2.0/polls.tar.gz";
+          sha256 = "1v5zb164f60qskfiv02l9x2v0d4rayacg5qivd70dawmyqnz4vmd";
+          url = "https://github.com/nextcloud/polls/releases/download/v5.3.2/polls.tar.gz";
         };
         notify_push = pkgs.fetchNextcloudApp {
           sha256 = "0hdxnkar2ibis5p0gp3yr1i6894la9wxq4pzrbqdrq2cgvsj6a18";
