@@ -2,7 +2,7 @@
   description = "RPI4 home server";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-23.05";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-23.11";
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
     sops-nix = {
       url = "github:Mic92/sops-nix";

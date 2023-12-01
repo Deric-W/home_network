@@ -19,14 +19,12 @@ with builtins;
         "127.0.0.0/8"
         "8.8.8.8"
       ];
-      jails = {
-        sshd = ''
-          enabled = true
-          port = ${concatStringsSep "," (map toString config.services.openssh.ports)}
-          filter = sshd
-          maxretry = 3
-          bantime = 600
-        '';
+      jails.sshd.settings = {
+        enabled = true;
+        port = concatStringsSep "," (map toString config.services.openssh.ports);
+        filter = "sshd";
+        maxretry = 3;
+        bantime = 600;
       };
     };
   };
