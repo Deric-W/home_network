@@ -6,13 +6,13 @@
       package = pkgs.nextcloud27;
       hostName = "nextcloud.thetwins.xyz";
       https = true;
-      maxUploadSize = "2G";
+      maxUploadSize = "3G";
       autoUpdateApps.enable = false;
       extraAppsEnable = true;
       extraApps = {
         calendar = pkgs.fetchNextcloudApp {
-          sha256 = "14jf0vrjkscz6j2xsf2xn18v3vwqkd8qi47iyyz2wlzdgi25zl6v";
-          url = "https://github.com/nextcloud-releases/calendar/releases/download/v4.5.1/calendar-v4.5.1.tar.gz";
+          sha256 = "0d6mfqwq44z9kn8nh3zmfzr05zi2rwnw3nhd9wc12dy6npynkcpm";
+          url = "https://github.com/nextcloud-releases/calendar/releases/download/v4.6.0/calendar-v4.6.0.tar.gz";
           license = "agpl3Plus";
         };
         contacts = pkgs.fetchNextcloudApp {
@@ -26,18 +26,18 @@
           license = "agpl3Plus";
         };
         forms = pkgs.fetchNextcloudApp {
-          sha256 = "155z87wyv2p06c3kpy9zaw6qf5s7s0ah4wfw022s4cc21i3rcwxv";
-          url = "https://github.com/nextcloud-releases/forms/releases/download/v3.3.1/forms-v3.3.1.tar.gz";
+          sha256 = "0nh1pigk4swrhh13b61m23jgpzclx3cdqapx9532yzfc58k3m5fk";
+          url = "https://github.com/nextcloud-releases/forms/releases/download/v3.4.2/forms-v3.4.2.tar.gz";
           license = "agpl3Plus";
         };
         polls = pkgs.fetchNextcloudApp {
-          sha256 = "1v5zb164f60qskfiv02l9x2v0d4rayacg5qivd70dawmyqnz4vmd";
-          url = "https://github.com/nextcloud/polls/releases/download/v5.3.2/polls.tar.gz";
+          sha256 = "1dmws4ybv3pzxz5g9c7ghblx0nfal2ssmsg7hjcs1n4xcjc6585p";
+          url = "https://github.com/nextcloud/polls/releases/download/v5.4.2/polls.tar.gz";
           license = "agpl3Plus";
         };
         notify_push = pkgs.fetchNextcloudApp {
-          sha256 = "0hdxnkar2ibis5p0gp3yr1i6894la9wxq4pzrbqdrq2cgvsj6a18";
-          url = "https://github.com/nextcloud-releases/notify_push/releases/download/v0.6.3/notify_push-v0.6.3.tar.gz";
+          sha256 = "0lwyy1pnyfw464vab1v5k8q0rgarrj5w12cf1nsywjaafb8y1ym0";
+          url = "https://github.com/nextcloud-releases/notify_push/releases/download/v0.6.5/notify_push-v0.6.5.tar.gz";
           license = "agpl3Plus";
         };
       };
@@ -71,6 +71,14 @@
         mail_smtpauth = true;
         mail_smtpname = "robo-eric@gmx.de";
         mail_smtptimeout = 30;
+      };
+      poolSettings = {
+        pm = "dynamic";
+        "pm.max_children" = "32";
+        "pm.max_requests" = "500";
+        "pm.max_spare_servers" = "16";
+        "pm.min_spare_servers" = "8";
+        "pm.start_servers" = "8";
       };
       secretFile = config.sops.secrets."nextcloud/mailpass".path;
     };
