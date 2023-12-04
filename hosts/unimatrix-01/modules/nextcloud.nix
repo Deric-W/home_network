@@ -7,6 +7,7 @@
       hostName = "nextcloud.thetwins.xyz";
       https = true;
       maxUploadSize = "3G";
+      fastcgiTimeout = 300;
       autoUpdateApps.enable = false;
       extraAppsEnable = true;
       extraApps = {
