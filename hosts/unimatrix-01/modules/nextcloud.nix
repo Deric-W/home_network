@@ -73,6 +73,11 @@
         mail_smtpname = "robo-eric@gmx.de";
         mail_smtptimeout = 30;
       };
+      phpOptions = {
+        "opcache.interned_strings_buffer" = "16";
+        "opcache.jit" = "tracing";
+        "opcache.jit_buffer_size" = "128M";
+      };
       poolSettings = {
         pm = "dynamic";
         "pm.max_children" = "32";
@@ -164,6 +169,37 @@
                   ^%(__prefix_line)s\{%(_groupsre)s,?\s*"remoteAddr":"<HOST>"%(_groupsre)s,?\s*"message":"Trusted domain error.
       datepattern = ,?\s*"time"\s*:\s*"%%Y-%%m-%%d[T ]%%H:%%M:%%S(%%z)?"
     '';
+
+    services.borgmatic.configurations.nextcloud = {
+      source_directories = [
+        "${config.services.nextcloud.home}/config"
+        "${config.services.nextcloud.home}/data"
+      ];
+      repositories = [
+        {
+          label = "local repository";
+          path = "ssh://borg@localhost/backup/services";
+        }
+      ];
+      source_directories_must_exist = true;
+      archive_name_format = "{hostname}-nextcloud-{now:%Y-%m-%dT%H:%M:%S.%f}";
+      match_archives = "{hostname}-nextcloud-*";
+      keep_within = "1H";
+      keep_secondly = 0;
+      keep_minutely = 0;
+      keep_hourly = 0;
+      keep_daily = 7;
+      keep_weekly = 4;
+      keep_monthly = 6;
+      keep_yearly = 2;
+      before_backup = "nextcloud-occ maintenance:mode --on";
+      after_backup = "nextcloud-occ maintenance:mode --off";
+      postgresql_databases = [{
+        name = config.services.nextcloud.config.dbname;
+        hostname = config.services.nextcloud.config.dbhost;
+        username = config.services.nextcloud.config.dbuser;
+      }];
+    };
 
     # cant use borgbackup.jobs since we need to backup the DB and the files
     users.users.nextcloud.createHome = true;
