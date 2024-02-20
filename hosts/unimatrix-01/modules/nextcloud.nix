@@ -12,13 +12,13 @@
       extraAppsEnable = true;
       extraApps = {
         calendar = pkgs.fetchNextcloudApp {
-          sha256 = "0d6mfqwq44z9kn8nh3zmfzr05zi2rwnw3nhd9wc12dy6npynkcpm";
-          url = "https://github.com/nextcloud-releases/calendar/releases/download/v4.6.0/calendar-v4.6.0.tar.gz";
+          sha256 = "18mi6ccq640jq21hmir35v2967h07bjv226072d9qz5qkzkmrhss";
+          url = "https://github.com/nextcloud-releases/calendar/releases/download/v4.6.5/calendar-v4.6.5.tar.gz";
           license = "agpl3Plus";
         };
         contacts = pkgs.fetchNextcloudApp {
-          sha256 = "0pbl4fmpg1jxwjj141gqnmwzgm3ji1z686kr11rmldfkjvhjss2x";
-          url = "https://github.com/nextcloud-releases/contacts/releases/download/v5.5.0/contacts-v5.5.0.tar.gz";
+          sha256 = "0g6pbzm7bxllpkf9jqkrb3ys8xvbmayxc3rqwspalzckayjbz98m";
+          url = "https://github.com/nextcloud-releases/contacts/releases/download/v5.5.2/contacts-v5.5.2.tar.gz";
           license = "agpl3Plus";
         };
         maps = pkgs.fetchNextcloudApp {
@@ -27,18 +27,18 @@
           license = "agpl3Plus";
         };
         forms = pkgs.fetchNextcloudApp {
-          sha256 = "1ffga26v01d14rh4mjwyjqp7slh7h7d07vs3yldb8csi826ynji4";
-          url = "https://github.com/nextcloud-releases/forms/releases/download/v4.0.0/forms-v4.0.0.tar.gz";
+          sha256 = "0iqkwnadhi6i1gnx7wiqny862g25kfiqi2mgkaf5cyiig3rispa0";
+          url = "https://github.com/nextcloud-releases/forms/releases/download/v4.1.1/forms-v4.1.1.tar.gz";
           license = "agpl3Plus";
         };
         polls = pkgs.fetchNextcloudApp {
-          sha256 = "1jsxgnn6vvbn1v0x8k2zf95pdqlrg6pxrvn32sms8sfzgq3lbn7m";
-          url = "https://github.com/nextcloud/polls/releases/download/v6.0.1/polls.tar.gz";
+          sha256 = "04y5g1vb9b9flya6557p0ychr5vnylzbgp2vcm7vhcsdbc5q9ib5";
+          url = "https://github.com/nextcloud/polls/releases/download/v6.1.1/polls.tar.gz";
           license = "agpl3Plus";
         };
         notify_push = pkgs.fetchNextcloudApp {
-          sha256 = "1by9qw9bsf48cyczhfxpz9ifrg2dayvcn26m309dicqgjqkz91hd";
-          url = "https://github.com/nextcloud-releases/notify_push/releases/download/v0.6.6/notify_push-v0.6.6.tar.gz";
+          sha256 = "1inq39kdfynip4j9hfrgybiscgii7r0wkjb5pssvmqknbpqf7x4g";
+          url = "https://github.com/nextcloud-releases/notify_push/releases/download/v0.6.9/notify_push-v0.6.9.tar.gz";
           license = "agpl3Plus";
         };
       };
