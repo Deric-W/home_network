@@ -72,6 +72,7 @@
         mail_smtpauth = true;
         mail_smtpname = "robo-eric@gmx.de";
         mail_smtptimeout = 30;
+        maintenance_window_start = 1;
       };
       phpOptions = {
         "opcache.interned_strings_buffer" = "16";
