@@ -127,6 +127,9 @@
           ensureDBOwnership = true;
         }
       ];
+      identMap = "
+        backup root ${config.services.nextcloud.config.dbuser}
+      ";
     };
 
     systemd.services."nextcloud-setup" = {

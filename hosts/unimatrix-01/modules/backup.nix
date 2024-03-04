@@ -26,13 +26,14 @@
         wants = [ "postgresql.service" ];
         after = [ "postgresql.service" ];
     };
-    systemd.timers.borgmatic.timerConfig.OnCalendar = "*-*-* 04:00:00";
-    services.postgresql = {   # allow root to login as postgres superuser
+    systemd.timers.borgmatic.timerConfig= {
+      OnCalendar = "*-*-* 04:00:00";
+      RandomizedDelaySec = "0";
+      Persistent = false;
+    };
+    services.postgresql = {   # allow root to login as other postgres user
       authentication = "
-        local all root peer map=backup
-      ";
-      identMap = "
-        backup root postgres
+        local all all peer map=backup
       ";
     };
   };
