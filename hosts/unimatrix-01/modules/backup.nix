@@ -31,10 +31,5 @@
       RandomizedDelaySec = "0";
       Persistent = false;
     };
-    services.postgresql = {   # allow root to login as other postgres user
-      authentication = "
-        local all all peer map=backup
-      ";
-    };
   };
 }

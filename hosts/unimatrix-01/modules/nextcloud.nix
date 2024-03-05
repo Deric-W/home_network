@@ -127,8 +127,13 @@
           ensureDBOwnership = true;
         }
       ];
+      authentication = "
+        local ${config.services.nextcloud.config.dbname} ${config.services.nextcloud.config.dbuser} peer map=nextcloud
+      ";
+      # allow root to log in as nextcloud to make backups
       identMap = "
-        backup root ${config.services.nextcloud.config.dbuser}
+        nextcloud root ${config.services.nextcloud.config.dbuser}
+        nextcloud nextcloud ${config.services.nextcloud.config.dbuser}
       ";
     };
 
