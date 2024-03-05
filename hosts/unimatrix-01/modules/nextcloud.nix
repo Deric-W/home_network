@@ -1,4 +1,5 @@
 { pkgs, config, ... }:
+with builtins;
 {
   config = {
     services.nextcloud = {
@@ -187,9 +188,10 @@
       repositories = [
         {
           label = "services repository";
-          path = "ssh://${config.services.borgbackup.repos.services.user}@localhost:${config.services.borgbackup.repos.services.path}";
+          path = "ssh://${config.services.borgbackup.repos.services.user}@localhost:${toString (head config.services.openssh.ports)}/${config.services.borgbackup.repos.services.path}";
         }
       ];
+      ssh_command = let ed25519key = head (filter (key: key.type == "ed25519") config.services.openssh.hostKeys); in "ssh -i ${ed25519key.path}";
       source_directories_must_exist = true;
       archive_name_format = "{hostname}-nextcloud-{now:%Y-%m-%dT%H:%M:%S.%f}";
       keep_within = "1H";

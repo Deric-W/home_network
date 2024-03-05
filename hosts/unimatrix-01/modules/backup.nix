@@ -4,7 +4,9 @@
       services = {
         quota = "1T";
         path = "/backup/services";
-        authorizedKeys = map (key: key.path) config.services.openssh.hostKeys;
+        authorizedKeys = [
+          "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAID9rXxTIWesncym2GYnqLFGpT6QmOVKVKETEFuMb2TCm root@mini-me"
+        ];
       };
       deric-pc = {
         quota = "1.5T";
