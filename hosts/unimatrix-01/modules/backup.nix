@@ -25,8 +25,8 @@
     };
     services.borgmatic.enable = true;
     # make updates start predictably
-    systemd.timers.borgmatic.timerConfig= {
-      OnCalendar = "*-*-* 04:00:00";
+    systemd.timers.borgmatic.timerConfig = {
+      OnCalendar = [ "" "*-*-* 04:00:00" ];
       RandomizedDelaySec = "0";
       Persistent = false;
     };
