@@ -216,7 +216,9 @@ with builtins;
       after_backup = [ "nextcloud-occ maintenance:mode --off" ];
       postgresql_databases = [{
         name = config.services.nextcloud.config.dbname;
-        hostname = config.services.nextcloud.config.dbhost;
+        # defaults to unix domain socket
+        # is concatenated with destination which leads to timeout
+        #hostname = config.services.nextcloud.config.dbhost;
         username = config.services.nextcloud.config.dbuser;
         no_owner = true;
       }];
