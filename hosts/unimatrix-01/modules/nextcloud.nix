@@ -212,14 +212,21 @@ with builtins;
           frequency = "1 month";
         }
       ];
-      before_backup = "nextcloud-occ maintenance:mode --on";
-      after_backup = "nextcloud-occ maintenance:mode --off";
+      before_backup = [ "nextcloud-occ maintenance:mode --on" ];
+      after_backup = [ "nextcloud-occ maintenance:mode --off" ];
       postgresql_databases = [{
         name = config.services.nextcloud.config.dbname;
         hostname = config.services.nextcloud.config.dbhost;
         username = config.services.nextcloud.config.dbuser;
         no_owner = true;
       }];
+    };
+    systemd.services.borgmatic = {
+      wants = [ "postgresql.service" ];
+      after = [ "postgresql.service" ];
+      # allow to execute nextcloud-occ (which in turn executes sudo)
+      path = config.environment.systemPackages;
+      serviceConfig.CapabilityBoundingSet = "CAP_SETUID CAP_SETGID";
     };
   };
 }

@@ -1,4 +1,4 @@
-{ config, ... }: {
+{ ... }: {
   config = {
     services.borgbackup.repos = {
       services = {
@@ -24,10 +24,7 @@
       };
     };
     services.borgmatic.enable = true;
-    systemd.services.borgmatic = {
-        wants = [ "postgresql.service" ];
-        after = [ "postgresql.service" ];
-    };
+    # make updates start predictably
     systemd.timers.borgmatic.timerConfig= {
       OnCalendar = "*-*-* 04:00:00";
       RandomizedDelaySec = "0";
