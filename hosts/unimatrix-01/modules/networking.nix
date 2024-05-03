@@ -1,4 +1,4 @@
-{ config, ... }:
+{ ... }:
 {
   networking = {
     hostName = "unimatrix-01";
@@ -28,13 +28,6 @@
 
     firewall = {
       enable = true;
-    };
-  };
-
-  security.acme = {
-    acceptTerms = true;
-    defaults = {
-      email = "robo-eric@gmx.de";
     };
   };
 }

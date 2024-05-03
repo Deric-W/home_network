@@ -3,10 +3,12 @@
   imports = [
     ./modules/hardware.nix
     ./modules/networking.nix
+    ./modules/acme.nix
     ./modules/secrets.nix
     ./modules/time.nix
     ./modules/backup.nix
     ./modules/nextcloud.nix
+    ./modules/nginx.nix
   ];
 
   config = {
