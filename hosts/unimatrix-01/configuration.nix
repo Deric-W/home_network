@@ -8,6 +8,7 @@
     ./modules/time.nix
     ./modules/backup.nix
     ./modules/nextcloud.nix
+    ./modules/mail.nix
     ./modules/nginx.nix
   ];
 

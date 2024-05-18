@@ -137,6 +137,7 @@ with builtins;
     services.redis.servers.nextcloud = {
       enable = true;
       user = "nextcloud";
+      port = 0;
       save = [];
       databases = 1;
     };

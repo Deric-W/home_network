@@ -14,3 +14,10 @@ creation_rules:
     - age:
         - *user_Deric
         - *host_mini_me
+
+  - path_regex: secrets/dovecot\.yaml$
+    key_groups:
+    - age:
+        - *user_Deric
+        - *host_mini_me
+
