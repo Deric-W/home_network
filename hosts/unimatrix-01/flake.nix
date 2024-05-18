@@ -15,9 +15,10 @@
     generic.url = "../../users/Generic";
   };
 
-  outputs = { self, nixpkgs, nixos-hardware, sops-nix, nixos-mailserver, generic }: {
+  outputs = { self, nixpkgs, nixos-hardware, sops-nix, nixos-mailserver, generic }@inputs: {
     nixosConfigurations."unimatrix-01" = nixpkgs.lib.nixosSystem {
       system = "aarch64-linux";
+      specialArgs = { inherit inputs; };
       modules = [
         ./configuration.nix
         nixos-hardware.nixosModules.raspberry-pi-4

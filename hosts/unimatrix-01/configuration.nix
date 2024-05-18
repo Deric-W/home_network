@@ -1,4 +1,4 @@
-{ pkgs, config, ... }:
+{ inputs, lib, pkgs, ... }:
 {
   imports = [
     ./modules/hardware.nix
@@ -33,6 +33,7 @@
         dates = "weekly";
         options = "--delete-older-than 30d";
       };
+      registry = lib.mapAttrs (_: value: { flake = value; }) inputs;
     };
   };
 }
