@@ -11,7 +11,7 @@
     enableManageSieve = true;
     hierarchySeparator = "/";
     indexDir = "/var/lib/dovecot/indices";
-    mailDirectory = "/var/mail";
+    useUTF8FolderNames = true;
     localDnsResolver = false;   # handled by systemd-resolved
     openFirewall = true;
     loginAccounts = {
@@ -30,6 +30,8 @@
       organizationName = "The Twins";
     };
   };
+
+  services.rspamd.overrides."logging.inc".text = "level = \"notice\";";
 
   users.users.${config.services.postfix.user}.extraGroups = [ config.security.acme.certs."thetwins.xyz".group ];
   users.users.${config.services.dovecot2.user}.extraGroups = [ config.security.acme.certs."thetwins.xyz".group ];
