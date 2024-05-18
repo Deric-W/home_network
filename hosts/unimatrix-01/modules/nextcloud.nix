@@ -56,9 +56,13 @@ with builtins;
         adminpassFile = config.sops.secrets."nextcloud/adminpass".path;
         defaultPhoneRegion = "DE";
       };
-      caching.redis = true;
+      caching = {
+        apcu = true;
+        redis = true;
+      };
       extraOptions = {
-        "memcache.local" = "\\OC\\Memcache\\Redis";
+        "memcache.local" = "\\OC\\Memcache\\APCu";
+        "memcache.distributed" = "\\OC\\Memcache\\Redis";
         "memcache.locking" = "\\OC\\Memcache\\Redis";
         redis = {
           host = config.services.redis.servers.nextcloud.unixSocket;
@@ -76,6 +80,9 @@ with builtins;
         maintenance_window_start = 1;
       };
       phpOptions = {
+        "apc.enable_cli" = "1";
+        "apc.shm_segments" = "1";
+        "apc.shm_size" = "32M";
         "opcache.interned_strings_buffer" = "16";
         "opcache.jit" = "tracing";
         "opcache.jit_buffer_size" = "128M";
@@ -94,13 +101,13 @@ with builtins;
     sops.secrets = {
       "nextcloud/adminpass" = {
         owner = "nextcloud";
-        reloadUnits = [ "nextcloud-setup.service" ];
+        restartUnits = [ "nextcloud-setup.service" ];
         sopsFile = ../../../secrets/nextcloud.yaml;
       };
 
       "nextcloud/mailpass" = {
         owner = "nextcloud";
-        reloadUnits = [ "nextcloud-setup.service" ];
+        restartUnits = [ "nextcloud-setup.service" ];
         sopsFile = ../../../secrets/nextcloud.yaml;
       };
     };
