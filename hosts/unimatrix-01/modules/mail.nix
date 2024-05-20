@@ -59,6 +59,26 @@ with builtins;
     };
   };
 
+  services.fail2ban = {
+    enable = true;
+    jails = {
+      postfix-sasl = ''
+        enabled = true
+        port = smtp,465,submission,imap,imaps,pop3,pop3s
+        filter = postfix[mode=auth]
+        maxretry = 3
+        bantime = 600
+      '';
+      dovecot = ''
+        enabled = true
+        port = pop3,pop3s,imap,imaps,submission,465,sieve
+        filter = dovecot[mode=normal]
+        maxretry = 3
+        bantime = 600
+      '';
+    };
+  };
+
   services.borgmatic.configurations.mail = {
     source_directories = [
       config.mailserver.mailDirectory
