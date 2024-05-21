@@ -13,7 +13,7 @@ with builtins;
     hierarchySeparator = "/";
     indexDir = "/var/lib/dovecot/indices";
     useUTF8FolderNames = true;
-    localDnsResolver = false;   # handled by systemd-resolved
+    localDnsResolver = false;   # handled by networking
     openFirewall = true;
     loginAccounts = {
       "generic@thetwins.xyz" = {
@@ -32,7 +32,14 @@ with builtins;
     };
   };
 
-  services.rspamd.overrides."logging.inc".text = "level = \"notice\";";
+  services.rspamd.overrides = {
+    "logging.inc".text = "level = \"notice\";";
+    "options.inc".text = ''
+      dns {
+        nameserver = "master-slave:127.0.0.1:1053,127.0.0.1:53";
+      }
+    '';
+  };
 
   users.users.${config.services.postfix.user}.extraGroups = [ config.security.acme.certs."thetwins.xyz".group ];
   users.users.${config.services.dovecot2.user}.extraGroups = [ config.security.acme.certs."thetwins.xyz".group ];

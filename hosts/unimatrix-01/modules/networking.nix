@@ -1,4 +1,5 @@
-{ ... }:
+{ config, lib, ... }:
+with builtins;
 {
   config = {
     networking = {
@@ -29,13 +30,32 @@
       firewall.enable = true;
     };
 
-    # DNS caching
-    services.resolved = {
+    services.kresd =
+    let
+      forwardInterfaces = [ "127.0.0.1@53" ] ++ (lib.optional config.networking.enableIPv6 "::1@53");
+      recursiveInterfaces = [ "127.0.0.1@1053" ] ++ (lib.optional config.networking.enableIPv6 "::1@1053");
+      mkListen = interface: let 
+        parts = match "^([^@]+)@(.+)$" interface;
+        addr = elemAt parts 0;
+        port = elemAt parts 1;
+      in "net.listen('${addr}', ${port}, { kind = 'dns' })\n";
+    in {
       enable = true;
-      fallbackDns = [
-        "8.8.8.8"
-        "8.8.4.4"
-      ];
+      listenPlain = [];
+      instances = 0;
+      extraConfig = ''
+        cache.size = 64 * MB
+        local systemd_instance = os.getenv("SYSTEMD_INSTANCE")
+        if string.match(systemd_instance, "^forward") then
+            policy.add(policy.all(policy.FORWARD({'8.8.8.8', '8.8.4.4'})))
+            ${lib.concatMapStrings mkListen forwardInterfaces}
+        elseif string.match(systemd_instance, "^recursive") then
+            ${lib.concatMapStrings mkListen recursiveInterfaces}
+        else 
+            panic("use kresd@forward* for kresd@recursive* as instance names")
+        end
+      '';
     };
+    systemd.targets.kresd.wants = [ "kresd@forward.service" "kresd@recursive.service" ];
   };
 }
