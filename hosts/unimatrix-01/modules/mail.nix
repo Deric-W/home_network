@@ -40,6 +40,10 @@ with builtins;
       }
     '';
   };
+  systemd.services.rspamd = {
+    wants = [ "kresd.target" ];
+    after = [ "kresd.target" ];
+  };
 
   users.users.${config.services.postfix.user}.extraGroups = [ config.security.acme.certs."thetwins.xyz".group ];
   users.users.${config.services.dovecot2.user}.extraGroups = [ config.security.acme.certs."thetwins.xyz".group ];
