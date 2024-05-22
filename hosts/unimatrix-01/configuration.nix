@@ -10,6 +10,7 @@
     ./modules/nextcloud.nix
     ./modules/mail.nix
     ./modules/nginx.nix
+    ./modules/postgresql.nix
   ];
 
   config = {
