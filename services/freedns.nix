@@ -14,7 +14,7 @@
       enable = true;
       description = "FreeDNS dynamic DNS updates";
       serviceConfig = {
-        ExecStart = "xargs -n 1 -a \"${config.sops.secrets."freedns/urls".path}\" ${pkgs.curl}/bin/curl -sS";
+        ExecStart = "${pkgs.findutils}/bin/xargs -n 1 -a \"${config.sops.secrets."freedns/urls".path}\" ${pkgs.curl}/bin/curl -sS";
         Type = "oneshot";
         Restart = "on-failure";
         User = config.users.users.freedns.name;
