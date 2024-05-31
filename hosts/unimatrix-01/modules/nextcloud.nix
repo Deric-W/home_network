@@ -13,33 +13,33 @@ with builtins;
       extraAppsEnable = true;
       extraApps = {
         calendar = pkgs.fetchNextcloudApp {
-          sha256 = "18mi6ccq640jq21hmir35v2967h07bjv226072d9qz5qkzkmrhss";
-          url = "https://github.com/nextcloud-releases/calendar/releases/download/v4.6.5/calendar-v4.6.5.tar.gz";
+          sha256 = "0zm2a63f99q7n1qw2n3p4pk50j5v4q24vpgndk4nnvaz6c792rzg";
+          url = "https://github.com/nextcloud-releases/calendar/releases/download/v4.7.4/calendar-v4.7.4.tar.gz";
           license = "agpl3Plus";
         };
         contacts = pkgs.fetchNextcloudApp {
-          sha256 = "0g6pbzm7bxllpkf9jqkrb3ys8xvbmayxc3rqwspalzckayjbz98m";
-          url = "https://github.com/nextcloud-releases/contacts/releases/download/v5.5.2/contacts-v5.5.2.tar.gz";
+          sha256 = "0xyrkr5p7xa8cn33kgx1hyblpbsdzaakpfm5bk6w9sm71a42688w";
+          url = "https://github.com/nextcloud-releases/contacts/releases/download/v5.5.3/contacts-v5.5.3.tar.gz";
           license = "agpl3Plus";
         };
         maps = pkgs.fetchNextcloudApp {
-          sha256 = "0rs5cqn2saip7fmj71ww879iqsmmigf0fi6fdbqmdxmrmvsnl9l6";
-          url = "https://github.com/nextcloud/maps/releases/download/v1.3.1/maps-1.3.1.tar.gz";
+          sha256 = "1gqms3rrdpjmpb1h5d72b4lwbvsl8p10zwnkhgnsmvfcf93h3r1c";
+          url = "https://github.com/nextcloud/maps/releases/download/v1.4.0/maps-1.4.0.tar.gz";
           license = "agpl3Plus";
         };
         forms = pkgs.fetchNextcloudApp {
-          sha256 = "0iqkwnadhi6i1gnx7wiqny862g25kfiqi2mgkaf5cyiig3rispa0";
-          url = "https://github.com/nextcloud-releases/forms/releases/download/v4.1.1/forms-v4.1.1.tar.gz";
+          sha256 = "1hwc7ra12nsr79xp8lkv3ip46bxxbjpaglb0a4k06ikfnzjaddny";
+          url = "https://github.com/nextcloud-releases/forms/releases/download/v4.2.4/forms-v4.2.4.tar.gz";
           license = "agpl3Plus";
         };
         polls = pkgs.fetchNextcloudApp {
-          sha256 = "04y5g1vb9b9flya6557p0ychr5vnylzbgp2vcm7vhcsdbc5q9ib5";
-          url = "https://github.com/nextcloud/polls/releases/download/v6.1.1/polls.tar.gz";
+          sha256 = "1crs6fks9ywywyi3pnji49dxnry5vpcmd1x29y8anyp32ji2a35r";
+          url = "https://github.com/nextcloud/polls/releases/download/v7.0.3/polls.tar.gz";
           license = "agpl3Plus";
         };
         notify_push = pkgs.fetchNextcloudApp {
-          sha256 = "1inq39kdfynip4j9hfrgybiscgii7r0wkjb5pssvmqknbpqf7x4g";
-          url = "https://github.com/nextcloud-releases/notify_push/releases/download/v0.6.9/notify_push-v0.6.9.tar.gz";
+          sha256 = "1w0nb74q5ishwsd9xhgjlp5ik159xjfp5i2cczi0fmwlb185n1ik";
+          url = "https://github.com/nextcloud-releases/notify_push/releases/download/v0.6.11/notify_push-v0.6.11.tar.gz";
           license = "agpl3Plus";
         };
       };
