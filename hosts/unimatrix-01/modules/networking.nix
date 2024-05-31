@@ -39,12 +39,20 @@ with builtins;
         addr = elemAt parts 0;
         port = elemAt parts 1;
       in "net.listen('${addr}', ${port}, { kind = 'dns' })\n";
+      negativeTrustAnchors = [
+        "openstreetmap.org"
+      ];
     in {
       enable = true;
       listenPlain = [];
       instances = 0;
       extraConfig = ''
         cache.size = 64 * MB
+        local negativeTrustAnchors = {${lib.concatMapStringsSep ", " (domain: "'${domain}'") negativeTrustAnchors}}
+        for _, negativeTrustAnchor in pairs(trust_anchors.insecure) do
+          table.insert(negativeTrustAnchors, negativeTrustAnchor)
+        end
+        trust_anchors.set_insecure(negativeTrustAnchors)
         local systemd_instance = os.getenv("SYSTEMD_INSTANCE")
         if string.match(systemd_instance, "^forward") then
             policy.add(policy.all(policy.FORWARD({'8.8.8.8', '8.8.4.4'})))
