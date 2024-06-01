@@ -1,23 +1,28 @@
 keys:
   - &user_Deric age1cu7cunvkgz7rghj0re3628p0ycwn3xr9kvw8z3f5hqyufrj53d0qru7y04
-  - &host_mini_me age18symnt0kd38geg73q25gshezjuqcjqwjemq9c2qw3wu4zky9my4qfsjvsl
+  - &host_unimatrix_01 age18symnt0kd38geg73q25gshezjuqcjqwjemq9c2qw3wu4zky9my4qfsjvsl
 
 creation_rules:
   - path_regex: secrets/freedns\.yaml$
     key_groups:
     - age:
         - *user_Deric
-        - *host_mini_me
+        - *host_unimatrix_01
 
   - path_regex: secrets/nextcloud\.yaml$
     key_groups:
     - age:
         - *user_Deric
-        - *host_mini_me
+        - *host_unimatrix_01
 
   - path_regex: secrets/dovecot\.yaml$
     key_groups:
     - age:
         - *user_Deric
-        - *host_mini_me
+        - *host_unimatrix_01
 
+  - path_regex: secrets/opendkim\.yaml$
+    key_groups:
+    - age:
+        - *user_Deric
+        - *host_unimatrix_01

@@ -68,6 +68,12 @@ with builtins;
       reloadUnits = [ "dovecot2.service" ];
       sopsFile = ../../../secrets/dovecot.yaml;
     };
+    opendkim = {
+      owner = config.services.opendkim.user;
+      restartUnits = [ "opendkim.service" ];
+      sopsFile = ../../../secrets/opendkim.yaml;
+      path = "${config.mailserver.dkimKeyDirectory}/thetwins.xyz.${config.mailserver.dkimSelector}.key";
+    };
   };
 
   services.fail2ban = {
@@ -101,6 +107,7 @@ with builtins;
     exclude_patterns = [
       "${config.mailserver.mailDirectory}/*/*/tmp"
       "${config.mailserver.mailDirectory}/*/*/dovecot-uidlist.lock"
+      config.sops.secrets.opendkim.path
       "/var/lib/rspamd/*.hs"
       "/var/lib/rspamd/*.hsmp"
       "/var/lib/rspamd/*.map"
