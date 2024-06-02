@@ -1,12 +1,16 @@
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
 {
   services.fail2ban = {
-    extraPackages = with pkgs; [ whois ];
+    extraPackages = with pkgs; [ whois postfix ];
     bantime = "10m";
     maxretry = 3;
     jails.DEFAULT.settings = {
       destemail = "generic@thetwins.xyz";
       mta = "sendmail";
+      action_mwl = ''
+        %(action_)s
+            %(mta)s-whois-matches[sender="%(sender)s", dest="%(destemail)s", chain="%(chain)s"]
+      '';
       action = "%(action_mwl)s";
       findtime = "10m";
     };
@@ -27,4 +31,10 @@
     # don't send mail on shutdown
     actionstop =
   '';
+  # allow executing sendmail
+  systemd.services.fail2ban.serviceConfig = {
+    NoNewPrivileges = lib.mkForce false;
+    ReadWritePaths = [ "/var/lib/postfix/queue/maildrop" ];
+    CapabilityBoundingSet = [ "CAP_DAC_OVERRIDE" ];
+  };
 }
