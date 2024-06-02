@@ -48,11 +48,17 @@ with builtins;
       instances = 0;
       extraConfig = ''
         cache.size = 64 * MB
+
         local negativeTrustAnchors = {${lib.concatMapStringsSep ", " (domain: "'${domain}'") negativeTrustAnchors}}
         for _, negativeTrustAnchor in pairs(trust_anchors.insecure) do
           table.insert(negativeTrustAnchors, negativeTrustAnchor)
         end
         trust_anchors.set_insecure(negativeTrustAnchors)
+
+        modules = { 'hints > iterate' }
+        hints.add_hosts('/etc/hosts')
+        policy.add(policy.domains(policy.PASS, {todname('localhost')}))
+
         local systemd_instance = os.getenv("SYSTEMD_INSTANCE")
         if string.match(systemd_instance, "^forward") then
             policy.add(policy.all(policy.FORWARD({'8.8.8.8', '8.8.4.4'})))
