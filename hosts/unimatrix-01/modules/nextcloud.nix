@@ -153,18 +153,10 @@ with builtins;
 
     services.fail2ban = {
       enable = true;
-      ignoreIP = [
-        "127.0.0.0/8"
-        "8.8.8.8"
-      ];
-      jails = {
-        nextcloud = ''
-          enabled = true
-          port = 80,443
-          filter = nextcloud[journalmatch=_SYSTEMD_UNIT=phpfpm-nextcloud.service]
-          maxretry = 3
-          bantime = 600
-        '';
+      jails.nextcloud.settings = {
+        enabled = true;
+        port = "http,https";
+        filter = "nextcloud[journalmatch=_SYSTEMD_UNIT=phpfpm-nextcloud.service]";
       };
     };
     environment.etc."fail2ban/filter.d/nextcloud.conf".text = ''

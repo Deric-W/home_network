@@ -11,6 +11,7 @@
     ./modules/mail.nix
     ./modules/nginx.nix
     ./modules/postgresql.nix
+    ./modules/fail2ban.nix
   ];
 
   config = {
