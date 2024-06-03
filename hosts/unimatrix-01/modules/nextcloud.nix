@@ -54,13 +54,13 @@ with builtins;
         dbname = "nextcloud";
         adminuser = "admin";
         adminpassFile = config.sops.secrets."nextcloud/adminpass".path;
-        defaultPhoneRegion = "DE";
       };
       caching = {
         apcu = true;
         redis = true;
       };
-      extraOptions = {
+      settings = {
+        default_phone_region = "DE";
         "memcache.local" = "\\OC\\Memcache\\APCu";
         "memcache.distributed" = "\\OC\\Memcache\\Redis";
         "memcache.locking" = "\\OC\\Memcache\\Redis";
