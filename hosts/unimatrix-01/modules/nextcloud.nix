@@ -4,7 +4,7 @@ with builtins;
   config = {
     services.nextcloud = {
       enable = true;
-      package = pkgs.nextcloud28;
+      package = pkgs.nextcloud29;
       hostName = "nextcloud.thetwins.xyz";
       https = true;
       maxUploadSize = "3G";
@@ -18,8 +18,8 @@ with builtins;
           license = "agpl3Plus";
         };
         contacts = pkgs.fetchNextcloudApp {
-          sha256 = "0xyrkr5p7xa8cn33kgx1hyblpbsdzaakpfm5bk6w9sm71a42688w";
-          url = "https://github.com/nextcloud-releases/contacts/releases/download/v5.5.3/contacts-v5.5.3.tar.gz";
+          sha256 = "0yxp3477fx4mrds8wchhzavrxwm88dvz7s58zp59q1v7qr9i7whr";
+          url = "https://github.com/nextcloud-releases/contacts/releases/download/v6.0.0/contacts-v6.0.0.tar.gz";
           license = "agpl3Plus";
         };
         maps = pkgs.fetchNextcloudApp {
