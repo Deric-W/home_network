@@ -78,6 +78,7 @@ with builtins;
         mail_smtpname = "robo-eric@gmx.de";
         mail_smtptimeout = 30;
         maintenance_window_start = 1;
+        dbpersistent = true;
       };
       phpOptions = {
         "apc.enable_cli" = "1";
@@ -86,6 +87,8 @@ with builtins;
         "opcache.interned_strings_buffer" = "16";
         "opcache.jit" = "tracing";
         "opcache.jit_buffer_size" = "128M";
+        "pgsql.allow_persistent" = "1";
+        "pgsql.max_persistent" = "1";
       };
       poolSettings = {
         pm = "dynamic";
