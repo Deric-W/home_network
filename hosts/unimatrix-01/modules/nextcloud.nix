@@ -195,6 +195,8 @@ with builtins;
     systemd.services.borgmatic = {
       wants = [ "postgresql.service" ];
       after = [ "postgresql.service" ];
+      # allow to execute pg_dump
+      path = [ config.services.postgresql.package ];
       # allow to execute nextcloud-occ (which in turn executes sudo)
       serviceConfig.CapabilityBoundingSet = "CAP_SETUID CAP_SETGID";
     };
