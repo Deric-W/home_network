@@ -1,4 +1,4 @@
-{ pkgs, config, ... }:
+{ pkgs, config, lib, ... }:
 with builtins;
 {
   config = {
@@ -11,37 +11,8 @@ with builtins;
       fastcgiTimeout = 300;
       autoUpdateApps.enable = false;
       extraAppsEnable = true;
-      extraApps = {
-        calendar = pkgs.fetchNextcloudApp {
-          sha256 = "0zm2a63f99q7n1qw2n3p4pk50j5v4q24vpgndk4nnvaz6c792rzg";
-          url = "https://github.com/nextcloud-releases/calendar/releases/download/v4.7.4/calendar-v4.7.4.tar.gz";
-          license = "agpl3Plus";
-        };
-        contacts = pkgs.fetchNextcloudApp {
-          sha256 = "0yxp3477fx4mrds8wchhzavrxwm88dvz7s58zp59q1v7qr9i7whr";
-          url = "https://github.com/nextcloud-releases/contacts/releases/download/v6.0.0/contacts-v6.0.0.tar.gz";
-          license = "agpl3Plus";
-        };
-        maps = pkgs.fetchNextcloudApp {
-          sha256 = "1gqms3rrdpjmpb1h5d72b4lwbvsl8p10zwnkhgnsmvfcf93h3r1c";
-          url = "https://github.com/nextcloud/maps/releases/download/v1.4.0/maps-1.4.0.tar.gz";
-          license = "agpl3Plus";
-        };
-        forms = pkgs.fetchNextcloudApp {
-          sha256 = "1hwc7ra12nsr79xp8lkv3ip46bxxbjpaglb0a4k06ikfnzjaddny";
-          url = "https://github.com/nextcloud-releases/forms/releases/download/v4.2.4/forms-v4.2.4.tar.gz";
-          license = "agpl3Plus";
-        };
-        polls = pkgs.fetchNextcloudApp {
-          sha256 = "1crs6fks9ywywyi3pnji49dxnry5vpcmd1x29y8anyp32ji2a35r";
-          url = "https://github.com/nextcloud/polls/releases/download/v7.0.3/polls.tar.gz";
-          license = "agpl3Plus";
-        };
-        notify_push = pkgs.fetchNextcloudApp {
-          sha256 = "1w0nb74q5ishwsd9xhgjlp5ik159xjfp5i2cczi0fmwlb185n1ik";
-          url = "https://github.com/nextcloud-releases/notify_push/releases/download/v0.6.11/notify_push-v0.6.11.tar.gz";
-          license = "agpl3Plus";
-        };
+      extraApps = with pkgs.nextcloud29Packages.apps; {
+        inherit calendar contacts maps forms polls notify_push;
       };
       notify_push = {
         enable = true;
@@ -174,10 +145,14 @@ with builtins;
       datepattern = ,?\s*"time"\s*:\s*"%%Y-%%m-%%d[T ]%%H:%%M:%%S(%%z)?"
     '';
 
-    services.borgmatic.configurations.nextcloud = {
+    services.borgmatic.configurations.nextcloud = 
+    let
+       occ = lib.getExe config.services.nextcloud.occ;
+    in {
       source_directories = [
         "${config.services.nextcloud.home}/config"
         "${config.services.nextcloud.home}/data"
+        "/vault/nextcloud"
       ];
       repositories = [
         {
@@ -206,8 +181,8 @@ with builtins;
           frequency = "1 month";
         }
       ];
-      before_backup = [ "nextcloud-occ maintenance:mode --on" ];
-      after_backup = [ "nextcloud-occ maintenance:mode --off" ];
+      before_backup = [ "${occ} maintenance:mode --on" ];
+      after_backup = [ "${occ} maintenance:mode --off" ];
       postgresql_databases = [{
         name = config.services.nextcloud.config.dbname;
         # defaults to unix domain socket
@@ -221,7 +196,6 @@ with builtins;
       wants = [ "postgresql.service" ];
       after = [ "postgresql.service" ];
       # allow to execute nextcloud-occ (which in turn executes sudo)
-      path = config.environment.systemPackages;
       serviceConfig.CapabilityBoundingSet = "CAP_SETUID CAP_SETGID";
     };
   };
