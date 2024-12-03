@@ -135,7 +135,7 @@ in
   services.smartd = {
     enable = true;
     autodetect = false;
-    defaults.monitored = "-a -n standby,16,q -s S/../.././04";
+    defaults.monitored = "-a -s S/../.././04";
     devices = [
       {
         device = "/dev/disk/by-label/root";
