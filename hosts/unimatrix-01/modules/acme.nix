@@ -22,8 +22,14 @@
       config.security.acme.certs."nextcloud.thetwins.xyz".group
     ];
     services.nginx.virtualHosts = {
-      "thetwins.xyz".enableACME = true;
-      "nextcloud.thetwins.xyz".enableACME = true;
+      "thetwins.xyz" = {
+        enableACME = true;
+        forceSSL = true;
+      };
+      "nextcloud.thetwins.xyz" = {
+        enableACME = true;
+        forceSSL = true;
+      };
     };
   };
 }
