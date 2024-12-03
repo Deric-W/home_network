@@ -4,14 +4,14 @@ with builtins;
   config = {
     services.nextcloud = {
       enable = true;
-      package = pkgs.nextcloud29;
+      package = pkgs.nextcloud30;
       hostName = "nextcloud.thetwins.xyz";
       https = true;
       maxUploadSize = "3G";
       fastcgiTimeout = 300;
       autoUpdateApps.enable = false;
       extraAppsEnable = true;
-      extraApps = with pkgs.nextcloud29Packages.apps; {
+      extraApps = with pkgs.nextcloud30Packages.apps; {
         inherit calendar contacts maps forms polls notify_push;
       };
       notify_push = {
