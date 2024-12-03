@@ -134,7 +134,8 @@ in
 
   services.smartd = {
     enable = true;
-    autodetect = true;
+    autodetect = false;
+    defaults.monitored = "-a -n standby,16,q -s S/../.././04";
     devices = [
       {
         device = "/dev/disk/by-label/root";
@@ -147,6 +148,10 @@ in
     ];
     notifications = {
       wall.enable = true;
+      mail = {
+        enable = true;
+        recipient = "generic@thetwins.xyz";
+      };
     };
   };
 }
