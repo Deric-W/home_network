@@ -32,3 +32,9 @@ creation_rules:
     - age:
         - *user_Deric
         - *host_unimatrix_01
+
+  - path_regex: secrets/transmission\.yaml$
+    key_groups:
+    - age:
+        - *user_Deric
+        - *host_unimatrix_01

@@ -12,6 +12,7 @@
     ./modules/nginx.nix
     ./modules/postgresql.nix
     ./modules/fail2ban.nix
+    ./modules/transmission.nix
   ];
 
   config = {
