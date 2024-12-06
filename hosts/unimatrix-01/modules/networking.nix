@@ -53,6 +53,9 @@ with builtins;
       owner = "root";
       sopsFile = ../../../secrets/wireless.yaml;
     };
+
+    # DNSSEC validation fails and a warning is produced after being turned off for an extended period of time
+    # fixable by running date -s
     services.kresd =
     let
       forwardInterfaces = [ "127.0.0.1@53" ] ++ (lib.optional config.networking.enableIPv6 "::1@53");
@@ -84,7 +87,7 @@ with builtins;
 
         local systemd_instance = os.getenv("SYSTEMD_INSTANCE")
         if string.match(systemd_instance, "^forward") then
-            policy.add(policy.all(policy.FORWARD({'8.8.8.8', '8.8.4.4'})))
+            policy.add(policy.all(policy.FORWARD({'192.168.0.1', '8.8.8.8', '8.8.4.4'})))
             ${lib.concatMapStrings mkListen forwardInterfaces}
         elseif string.match(systemd_instance, "^recursive") then
             ${lib.concatMapStrings mkListen recursiveInterfaces}
