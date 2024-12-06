@@ -1,13 +1,10 @@
-{ pkgs, ... }:
+{ ... }:
 let
   btrfs-options = [ "defaults" "noatime" "nodiscard" "barrier" ];
 in
 {
   boot = {
-    kernelPackages = pkgs.linuxPackages_rpi4;
-    initrd = {
-      availableKernelModules = [ "usbhid" "usb_storage" ];
-    };
+    initrd.availableKernelModules = [ "usbhid" "usb_storage" ];
     kernelParams = [
       "8250.nr_uarts=1"
       "console=ttyAMA0,115200"
@@ -21,7 +18,10 @@ in
   };
 
   hardware.enableRedistributableFirmware = true;
-  hardware.raspberry-pi."4".fkms-3d.enable = true;
+  hardware.raspberry-pi."4" = {
+    fkms-3d.enable = true;
+    apply-overlays-dtmerge.enable = true;
+  };
   hardware.deviceTree = {
     enable = true;
     # to prevent build failure with compute module 4 trees
