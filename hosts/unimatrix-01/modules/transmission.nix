@@ -9,9 +9,19 @@
       settings = {
         speed-limit-up-enabled = true;
         speed-limit-up = 5000;
+        ratio-limit-enabled = false;
         rpc-bind-address = "0.0.0.0";
         rpc-authentication-required = true;
+        rpc-username = "user";
+        rpc-whitelist-enabled = false;
       };
+    };
+
+    # lower CPU and IO priority
+    systemd.services.transmission.serviceConfig = {
+      IOSchedulingClass = "best-effort";
+      IOSchedulingPriority = 7;
+      Nice = 19;
     };
 
     sops.secrets.transmission = {
