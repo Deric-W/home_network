@@ -26,7 +26,6 @@
         nixos-mailserver.nixosModule
         generic.nixosModules.user
         generic.nixosModules.adminUser
-        ../../services/freedns.nix
         ../../services/sshd.nix
       ];
     };
