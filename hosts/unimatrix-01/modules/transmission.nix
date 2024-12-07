@@ -9,7 +9,7 @@
       credentialsFile = config.sops.secrets.transmission.path;
       settings = {
         speed-limit-up-enabled = true;
-        speed-limit-up = 5000;
+        speed-limit-up = 3000;
         ratio-limit-enabled = false;
         rpc-bind-address = "0.0.0.0";
         rpc-authentication-required = true;
