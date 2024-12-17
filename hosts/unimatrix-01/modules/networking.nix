@@ -20,8 +20,8 @@ with builtins;
         enable = true;
         scanOnLowSignal = false;
         interfaces = [ "wlan0" ];
-        environmentFile = config.sops.secrets.wireless.path;
-        networks.UnimatrixOne.pskRaw = "@UnimatrixOne_PASS@";
+        secretsFile = config.sops.secrets.wireless.path;
+        networks.UnimatrixOne.pskRaw = "ext:UnimatrixOne_PASS";
       };
 
       interfaces.wlan0 = {
