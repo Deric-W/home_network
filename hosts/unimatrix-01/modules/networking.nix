@@ -7,33 +7,14 @@ with builtins;
 
       defaultGateway = {
         address = "192.168.0.1";
-        interface = "wlan0";
+        interface = "eth0";
       };
       defaultGateway6 = {
         address = "fd00:3a10:d5ff:febc:3a10:d5ff:febc:d559";
-        interface = "wlan0";
+        interface = "eth0";
       };
 
       useDHCP = false;
-
-      wireless = {
-        enable = true;
-        scanOnLowSignal = false;
-        interfaces = [ "wlan0" ];
-        secretsFile = config.sops.secrets.wireless.path;
-        networks.UnimatrixOne.pskRaw = "ext:UnimatrixOne_PASS";
-      };
-
-      interfaces.wlan0 = {
-        ipv4.addresses = [{
-          address = "192.168.0.7";
-          prefixLength = 24;
-        }];
-        ipv6.addresses = [{
-          address = "fd00:3a10:d5ff:febc:ffff:dead:beef:fffd";
-          prefixLength = 64;
-        }];
-      };
 
       interfaces.eth0 = {
         ipv4.addresses = [{
@@ -47,11 +28,6 @@ with builtins;
       };
 
       firewall.enable = true;
-    };
-
-    sops.secrets.wireless = {
-      owner = "root";
-      sopsFile = ../../../secrets/wireless.yaml;
     };
 
     # DNSSEC validation fails and a warning is produced after being turned off for an extended period of time
