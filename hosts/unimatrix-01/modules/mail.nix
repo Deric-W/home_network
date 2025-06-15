@@ -65,11 +65,13 @@ with builtins;
   sops.secrets = {
     "dovecot/generic" = {
       owner = config.services.dovecot2.user;
+      group = config.services.dovecot2.group;
       reloadUnits = [ "dovecot2.service" ];
       sopsFile = ../../../secrets/dovecot.yaml;
     };
     opendkim = {
       owner = config.services.opendkim.user;
+      group = config.services.opendkim.group;
       restartUnits = [ "opendkim.service" ];
       sopsFile = ../../../secrets/opendkim.yaml;
       path = "${config.mailserver.dkimKeyDirectory}/thetwins.xyz.${config.mailserver.dkimSelector}.key";

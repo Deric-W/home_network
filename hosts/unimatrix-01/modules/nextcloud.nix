@@ -75,12 +75,14 @@ with builtins;
     sops.secrets = {
       "nextcloud/adminpass" = {
         owner = "nextcloud";
+        group = "nextcloud";
         restartUnits = [ "nextcloud-setup.service" ];
         sopsFile = ../../../secrets/nextcloud.yaml;
       };
 
       "nextcloud/mailpass" = {
         owner = "nextcloud";
+        group = "nextcloud";
         restartUnits = [ "nextcloud-setup.service" ];
         sopsFile = ../../../secrets/nextcloud.yaml;
       };
