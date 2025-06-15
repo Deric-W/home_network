@@ -183,8 +183,18 @@ with builtins;
           frequency = "1 month";
         }
       ];
-      before_backup = [ "${occ} maintenance:mode --on" ];
-      after_backup = [ "${occ} maintenance:mode --off" ];
+      commands = [
+        {
+          before = "action";
+          when = [ "create" ];
+          run = [ "${occ} maintenance:mode --on" ];
+        }
+        {
+          after = "action";
+          when = [ "create" ];
+          run = [ "${occ} maintenance:mode --off" ];
+        }
+      ];
       postgresql_databases = [{
         name = config.services.nextcloud.config.dbname;
         # defaults to unix domain socket
@@ -200,7 +210,7 @@ with builtins;
       # allow to execute pg_dump
       path = [ config.services.postgresql.package ];
       # allow to execute nextcloud-occ (which in turn executes sudo)
-      serviceConfig.CapabilityBoundingSet = "CAP_SETUID CAP_SETGID";
+      serviceConfig.CapabilityBoundingSet = [ "CAP_SETUID CAP_SETGID" ];
     };
   };
 }
