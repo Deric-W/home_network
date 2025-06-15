@@ -53,7 +53,7 @@ with builtins;
     servers.rspamd = {
       enable = true;
       user = config.services.rspamd.user;
-      port = 6380;
+      port = 0;
       save = [ 
         [ 3600 1 ]
         [ 60 1000 ]
@@ -69,11 +69,11 @@ with builtins;
       reloadUnits = [ "dovecot2.service" ];
       sopsFile = ../../../secrets/dovecot.yaml;
     };
-    opendkim = {
-      owner = config.services.opendkim.user;
-      group = config.services.opendkim.group;
-      restartUnits = [ "opendkim.service" ];
-      sopsFile = ../../../secrets/opendkim.yaml;
+    dkim = {
+      owner = config.services.rspamd.user;
+      group = config.services.rspamd.group;
+      restartUnits = [ "rspamd.service" ];
+      sopsFile = ../../../secrets/dkim.yaml;
       path = "${config.mailserver.dkimKeyDirectory}/thetwins.xyz.${config.mailserver.dkimSelector}.key";
     };
   };
@@ -105,7 +105,7 @@ with builtins;
     exclude_patterns = [
       "${config.mailserver.mailDirectory}/*/*/tmp"
       "${config.mailserver.mailDirectory}/*/*/dovecot-uidlist.lock"
-      config.sops.secrets.opendkim.path
+      config.sops.secrets.dkim.path
       "/var/lib/rspamd/*.hs"
       "/var/lib/rspamd/*.hsmp"
       "/var/lib/rspamd/*.map"

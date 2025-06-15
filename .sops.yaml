@@ -21,7 +21,7 @@ creation_rules:
         - *user_Deric
         - *host_unimatrix_01
 
-  - path_regex: secrets/opendkim\.yaml$
+  - path_regex: secrets/dkim\.yaml$
     key_groups:
     - age:
         - *user_Deric
