@@ -149,7 +149,7 @@ with builtins;
 
     services.borgmatic.configurations.nextcloud = 
     let
-       occ = lib.getExe config.services.nextcloud.occ;
+       occ = "${pkgs.coreutils}/bin/env --unset=CREDENTIALS_DIRECTORY ${lib.getExe config.services.nextcloud.occ}";
     in {
       source_directories = [
         "${config.services.nextcloud.home}/config"
