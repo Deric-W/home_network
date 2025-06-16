@@ -163,7 +163,7 @@ with builtins;
         }
       ];
       ssh_command = let ed25519key = head (filter (key: key.type == "ed25519") config.services.openssh.hostKeys); in "ssh -i ${ed25519key.path}";
-      source_directories_must_exist = true;
+      source_directories_must_exist = false;
       archive_name_format = "{hostname}-nextcloud-{now:%Y-%m-%dT%H:%M:%S.%f}";
       keep_within = "1H";
       keep_secondly = 0;
