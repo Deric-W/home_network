@@ -7,8 +7,8 @@ with builtins;
       package = pkgs.nextcloud30;
       hostName = "nextcloud.thetwins.xyz";
       https = true;
-      maxUploadSize = "8G";
-      fastcgiTimeout = 600;
+      maxUploadSize = "16G";
+      fastcgiTimeout = 1200;
       autoUpdateApps.enable = false;
       extraAppsEnable = true;
       extraApps = with pkgs.nextcloud30Packages.apps; {
