@@ -153,5 +153,10 @@ in
         recipient = "generic@thetwins.xyz";
       };
     };
+    extraOptions = [ "--savestates=/var/lib/smartmontools" ];
   };
+
+  systemd.tmpfiles.rules = [
+    "d /var/lib/smartmontools 750 root root - -"
+  ];
 }
