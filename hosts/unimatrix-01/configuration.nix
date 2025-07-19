@@ -13,7 +13,6 @@
     ./modules/postgresql.nix
     ./modules/fail2ban.nix
     ./modules/transmission.nix
-    ./modules/shares.nix
   ];
 
   config = {
