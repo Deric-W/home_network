@@ -153,10 +153,10 @@ in
         recipient = "generic@thetwins.xyz";
       };
     };
-    extraOptions = [ "--savestates=/var/lib/smartmontools" ];
+    extraOptions = [ "--savestates=/var/lib/smartd/" ];
   };
 
   systemd.tmpfiles.rules = [
-    "d /var/lib/smartmontools 750 root root - -"
+    "d /var/lib/smartd 750 root root - -"
   ];
 }
