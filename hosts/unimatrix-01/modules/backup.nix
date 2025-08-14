@@ -6,6 +6,7 @@
         path = "/backup/services";
         authorizedKeys = [
           "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAID9rXxTIWesncym2GYnqLFGpT6QmOVKVKETEFuMb2TCm root@mini-me"
+          "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIB10VjrUY7gSy7XD+IQ2uUwi6wNLdl24hBYs75sfNsoX Services"
         ];
       };
       deric-pc = {
