@@ -50,6 +50,7 @@ with builtins;
         mail_smtptimeout = 30;
         maintenance_window_start = 1;
         dbpersistent = true;
+        trashbin_retention_obligation = "auto, 30";
       };
       phpOptions = {
         "apc.enable_cli" = "1";
