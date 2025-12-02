@@ -72,6 +72,7 @@ with builtins;
         end
       '';
     };
+    systemd.services."kresd@".serviceConfig.WatchdogSec = "60s";
     systemd.targets.kresd.wants = [ "kresd@forward.service" "kresd@recursive.service" ];
   };
 }
