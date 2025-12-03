@@ -101,8 +101,8 @@ with builtins;
       "/var/lib/redis-rspamd/dump.rdb"
     ];
     exclude_patterns = [
-      "${config.mailserver.mailDirectory}/*/*/tmp"
-      "${config.mailserver.mailDirectory}/*/*/dovecot-uidlist.lock"
+      "${config.mailserver.mailDirectory}/*/*/mail/tmp"
+      "${config.mailserver.mailDirectory}/*/*/mail/dovecot-uidlist.lock"
       config.sops.secrets.dkim.path
       "/var/lib/rspamd/*.hs"
       "/var/lib/rspamd/*.hsmp"
