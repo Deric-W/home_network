@@ -3,7 +3,10 @@ with builtins;
 {
   mailserver = {
     enable = true;
+    stateVersion = 3;
     domains = [ "thetwins.xyz" ];
+    systemDomain = "thetwins.xyz";
+    systemName = "The Twins";
     fqdn = "thetwins.xyz";
     enableImap = true;
     enableImapSsl = true;
@@ -24,12 +27,7 @@ with builtins;
     };
     certificateScheme = "acme";
     dkimSigning = true;
-    dmarcReporting = {
-      enable = true;
-      domain = "thetwins.xyz";
-      localpart = "postmaster";
-      organizationName = "The Twins";
-    };
+    dmarcReporting.enable = true;
   };
 
   services.rspamd.overrides = {
@@ -66,7 +64,7 @@ with builtins;
     "dovecot/generic" = {
       owner = config.services.dovecot2.user;
       group = config.services.dovecot2.group;
-      reloadUnits = [ "dovecot2.service" ];
+      reloadUnits = [ "dovecot.service" ];
       sopsFile = ../../../secrets/dovecot.yaml;
     };
     dkim = {

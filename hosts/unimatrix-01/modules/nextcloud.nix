@@ -12,7 +12,7 @@ with builtins;
       autoUpdateApps.enable = false;
       extraAppsEnable = true;
       extraApps = with pkgs.nextcloud31Packages.apps; {
-        inherit calendar contacts maps forms polls notify_push;
+        inherit calendar contacts maps forms polls;
       };
       notify_push = {
         enable = true;
@@ -44,7 +44,7 @@ with builtins;
         mail_from_address = "robo-eric";
         mail_smtphost = "mail.gmx.net";
         mail_smtpport = 587;
-        mail_smtpsecure = "tls";
+        mail_smtpsecure = "ssl";
         mail_smtpauth = true;
         mail_smtpname = "robo-eric@gmx.de";
         mail_smtptimeout = 30;
@@ -114,8 +114,8 @@ with builtins;
     };
 
     systemd.services."nextcloud-setup" = {
-      requires = [ "postgresql.service" "redis-nextcloud.service" ];
-      after = [ "postgresql.service" "redis-nextcloud.service" ];
+      requires = [ "postgresql.target" "redis-nextcloud.service" ];
+      after = [ "postgresql.target" "redis-nextcloud.service" ];
     };
 
     services.redis.servers.nextcloud = {
@@ -206,8 +206,8 @@ with builtins;
       }];
     };
     systemd.services.borgmatic = {
-      wants = [ "postgresql.service" ];
-      after = [ "postgresql.service" ];
+      wants = [ "postgresql.target" ];
+      after = [ "postgresql.target" ];
       # allow to execute pg_dump
       path = [ config.services.postgresql.package ];
       # allow to execute nextcloud-occ (which in turn executes sudo)
