@@ -4,15 +4,15 @@ with builtins;
   config = {
     services.nextcloud = {
       enable = true;
-      package = pkgs.nextcloud31;
+      package = pkgs.nextcloud32;
       hostName = "nextcloud.thetwins.xyz";
       https = true;
       maxUploadSize = "16G";
       fastcgiTimeout = 1200;
       autoUpdateApps.enable = false;
       extraAppsEnable = true;
-      extraApps = with pkgs.nextcloud31Packages.apps; {
-        inherit calendar contacts maps forms polls;
+      extraApps = with pkgs.nextcloud32Packages.apps; {
+        inherit calendar contacts forms polls;
       };
       notify_push = {
         enable = true;
@@ -144,6 +144,7 @@ with builtins;
       [Definition]
       _groupsre = (?:(?:,?\s*"\w+":(?:"[^"]+"|\w+))*)
       failregex = ^%(__prefix_line)s\{%(_groupsre)s,?\s*"remoteAddr":"<HOST>"%(_groupsre)s,?\s*"message":"Login failed:
+                  ^%(__prefix_line)s\{%(_groupsre)s,?\s*"remoteAddr":"<HOST>"%(_groupsre)s,?\s*"message":"Two-factor challenge failed:
                   ^%(__prefix_line)s\{%(_groupsre)s,?\s*"remoteAddr":"<HOST>"%(_groupsre)s,?\s*"message":"Trusted domain error.
       datepattern = ,?\s*"time"\s*:\s*"%%Y-%%m-%%d[T ]%%H:%%M:%%S(%%z)?"
     '';
