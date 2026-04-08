@@ -4,14 +4,14 @@ with builtins;
   config = {
     services.nextcloud = {
       enable = true;
-      package = pkgs.nextcloud32;
+      package = pkgs.nextcloud33;
       hostName = "nextcloud.thetwins.xyz";
       https = true;
       maxUploadSize = "16G";
       fastcgiTimeout = 1200;
       autoUpdateApps.enable = false;
       extraAppsEnable = true;
-      extraApps = with pkgs.nextcloud32Packages.apps; {
+      extraApps = with pkgs.nextcloud33Packages.apps; {
         inherit calendar contacts forms polls;
       };
       notify_push = {
@@ -31,6 +31,7 @@ with builtins;
         redis = true;
       };
       settings = {
+        serverid = 0;
         default_phone_region = "DE";
         "memcache.local" = "\\OC\\Memcache\\APCu";
         "memcache.distributed" = "\\OC\\Memcache\\Redis";
