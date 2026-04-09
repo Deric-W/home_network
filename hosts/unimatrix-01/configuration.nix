@@ -13,6 +13,7 @@
     ./modules/postgresql.nix
     ./modules/fail2ban.nix
     ./modules/transmission.nix
+    ./modules/rustdesk.nix
   ];
 
   config = {
