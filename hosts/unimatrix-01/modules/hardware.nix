@@ -1,6 +1,8 @@
 { ... }:
 let
   btrfs-options = [ "defaults" "noatime" "nodiscard" "barrier" ];
+  xfs-options = [ "defaults" "noatime" "nodiscard" ];
+  vfat-options = [ "defaults" "noatime" ];
 in
 {
   boot = {
@@ -96,12 +98,12 @@ in
     "/boot" = {
       device = "/dev/disk/by-label/BOOT";
       fsType = "vfat";
-      options = [ "defaults" "noatime" ];
+      options = vfat-options;
     };
-    "/var" = {
-      device = "/dev/disk/by-label/data";
-      fsType = "btrfs";
-      options = btrfs-options;
+    "/databases" = {
+      device = "/dev/disk/by-label/databases";
+      fsType = "xfs";
+      options = xfs-options;
     };
     "/vault" = {
       device = "/dev/mapper/vault";
