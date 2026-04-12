@@ -1,7 +1,8 @@
-{ pkgs, ... }:
+{ pkgs, config, ... }:
 {
   services.postgresql = {
-    package = pkgs.postgresql_17;
+    package = pkgs.postgresql_18;
+    dataDir = "/databases/postgresql/${config.services.postgresql.package.psqlSchema}";
     settings = {
       max_connections = 124;
       shared_buffers = "512MB";
@@ -15,6 +16,7 @@
       wal_compression = "lz4";
       min_wal_size = "1GB";
       max_wal_size = "4GB";
+      io_method = "io_uring";
     };
   };
 }
