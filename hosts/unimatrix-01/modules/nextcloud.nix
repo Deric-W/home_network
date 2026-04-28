@@ -150,68 +150,42 @@ with builtins;
       datepattern = ,?\s*"time"\s*:\s*"%%Y-%%m-%%d[T ]%%H:%%M:%%S(%%z)?"
     '';
 
-    services.borgmatic.configurations.nextcloud = 
-    let
-       occ = "${pkgs.coreutils}/bin/env --unset=CREDENTIALS_DIRECTORY ${lib.getExe config.services.nextcloud.occ}";
-    in {
-      source_directories = [
-        "${config.services.nextcloud.home}/config"
-        "${config.services.nextcloud.home}/data"
-        "/vault/nextcloud"
-      ];
-      repositories = [
-        {
-          label = "services repository";
-          path = "ssh://${config.services.borgbackup.repos.services.user}@localhost:${toString (head config.services.openssh.ports)}/${config.services.borgbackup.repos.services.path}";
-        }
-      ];
-      ssh_command = let ed25519key = head (filter (key: key.type == "ed25519") config.services.openssh.hostKeys); in "ssh -i ${ed25519key.path}";
-      source_directories_must_exist = false;
-      archive_name_format = "{hostname}-nextcloud-{now:%Y-%m-%dT%H:%M:%S.%f}";
-      keep_within = "1H";
-      keep_secondly = 0;
-      keep_minutely = 0;
-      keep_hourly = 0;
-      keep_daily = 7;
-      keep_weekly = 4;
-      keep_monthly = 6;
-      keep_yearly = 2;
-      checks = [
-        {
-          name = "repository";
-          frequency = "1 month";
-        }
-        {
-          name = "archives";
-          frequency = "1 month";
-        }
-      ];
-      commands = [
-        {
-          before = "action";
-          when = [ "create" ];
-          run = [ "${occ} maintenance:mode --on" ];
-        }
-        {
-          after = "action";
-          when = [ "create" ];
-          run = [ "${occ} maintenance:mode --off" ];
-        }
-      ];
-      postgresql_databases = [{
-        name = config.services.nextcloud.config.dbname;
-        # defaults to unix domain socket
-        # is concatenated with destination which leads to timeout
-        #hostname = config.services.nextcloud.config.dbhost;
-        username = config.services.nextcloud.config.dbuser;
-        no_owner = true;
-      }];
-    };
+    unimatrix-01.backups.nextcloud =
+      let
+        occ = "${pkgs.coreutils}/bin/env --unset=CREDENTIALS_DIRECTORY ${lib.getExe config.services.nextcloud.occ}";
+      in
+      {
+        source_directories = [
+          "${config.services.nextcloud.home}/config"
+          "${config.services.nextcloud.home}/data"
+          "/vault/nextcloud"
+        ];
+        postgresql_databases = [
+          {
+            name = config.services.nextcloud.config.dbname;
+            # defaults to unix domain socket
+            # is concatenated with destination which leads to timeout
+            #hostname = config.services.nextcloud.config.dbhost;
+            username = config.services.nextcloud.config.dbuser;
+            no_owner = true;
+          }
+        ];
+        commands = [
+          {
+            before = "action";
+            when = [ "create" ];
+            run = [ "${occ} maintenance:mode --on" ];
+          }
+          {
+            after = "action";
+            when = [ "create" ];
+            run = [ "${occ} maintenance:mode --off" ];
+          }
+        ];
+      };
     systemd.services.borgmatic = {
       wants = [ "postgresql.target" ];
       after = [ "postgresql.target" ];
-      # allow to execute pg_dump
-      path = [ config.services.postgresql.package ];
       # allow to execute nextcloud-occ (which in turn executes sudo)
       serviceConfig.CapabilityBoundingSet = [ "CAP_SETUID CAP_SETGID" ];
     };
