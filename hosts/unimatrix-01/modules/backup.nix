@@ -103,7 +103,6 @@ with builtins;
           "/backup"
           "${config.users.users.root.home}/.config/borg"
           "${config.users.users.root.home}/.cache/borg"
-          "${config.users.users.root.home}/.borgmatic"
         ];
       };
 
