@@ -26,5 +26,7 @@ with builtins;
       keyFile = "/var/lib/sops-nix/key.txt";
       generateKey = true;
     };
+
+    unimatrix-01.backups.secrets.source_directories = [ "/secrets" ];
   };
 }
