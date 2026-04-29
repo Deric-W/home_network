@@ -27,6 +27,9 @@ with builtins;
       generateKey = true;
     };
 
-    unimatrix-01.backups.secrets.source_directories = [ "/secrets" ];
+    unimatrix-01.backups.secrets = {
+      source_directories = [ "/secrets" ];
+      exclude_patterns = [ "/secrets/lost+found" ];
+    };
   };
 }
