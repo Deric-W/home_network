@@ -48,6 +48,12 @@ with builtins;
         };
       };
 
+      sops.secrets."backups/services" = {
+        owner = "root";
+        group = "root";
+        sopsFile = ../../../secrets/backups.yaml;
+      };
+
       services.borgmatic = {
         enable = cfg != { };
         configurations =
@@ -70,6 +76,8 @@ with builtins;
                     "-i"
                     ed25519key.path
                   ];
+                  encryption_passphrase = "{credential file ${config.sops.secrets."backups/services".path}}";
+                  compression = "lz4";
                   archive_name_format = "{hostname}-${name}-{now:%Y-%m-%dT%H:%M:%S.%f}";
                   source_directories_must_exist = true;
                   keep_within = "1H";
