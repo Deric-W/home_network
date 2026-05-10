@@ -12,7 +12,7 @@ with builtins;
       autoUpdateApps.enable = false;
       extraAppsEnable = true;
       extraApps = with pkgs.nextcloud33Packages.apps; {
-        inherit calendar contacts forms polls;
+        inherit calendar contacts forms polls phonetrack;
       };
       notify_push = {
         enable = true;
