@@ -27,7 +27,6 @@ in
       "console=ttyAMA0,115200"
       "console=tty1"
       "cma=128M"
-      "boot.shell_on_fail"
     ];
     kernel.sysctl = {
       "vm.swappiness" = 10;
@@ -127,7 +126,7 @@ in
       encrypted = {
         enable = true;
         label = "vault";
-        keyFile = "/mnt-root/secrets/vault.key";
+        keyFile = "/sysroot/secrets/vault.key";
         blkDev = "/dev/disk/by-partlabel/vault";
       };
     };
@@ -173,7 +172,11 @@ in
     extraOptions = [ "--savestates=/var/lib/smartd/" ];
   };
 
-  systemd.tmpfiles.rules = [
-    "d /var/lib/smartd 750 root root - -"
-  ];
+  systemd = {
+    # allow root rescue shell even if root password is disabled
+    services.rescue.environment.SYSTEMD_SULOGIN_FORCE = "1";
+    tmpfiles.rules = [
+      "d /var/lib/smartd 750 root root - -"
+    ];
+  };
 }

@@ -1,8 +1,8 @@
-{ config, ... }:
+{ config, lib, ... }:
 {
   mailserver = {
     enable = true;
-    stateVersion = 3;
+    stateVersion = 5;
     domains = [ "thetwins.xyz" ];
     systemDomain = "thetwins.xyz";
     systemName = "The Twins";
@@ -17,15 +17,33 @@
     useUTF8FolderNames = true;
     localDnsResolver = false;   # handled by networking
     openFirewall = true;
-    loginAccounts = {
+    accounts = {
       "generic@thetwins.xyz" = {
         hashedPasswordFile = config.sops.secrets."dovecot/generic".path;
         quota = "10G";
-        aliases = [ "abuse@thetwins.xyz" "postmaster@thetwins.xyz" ];
+        aliases = [
+          "abuse@thetwins.xyz"
+          "postmaster@thetwins.xyz"
+        ];
       };
     };
-    certificateScheme = "acme";
-    dkimSigning = true;
+    x509.useACMEHost = config.mailserver.fqdn;
+    dkim = {
+      enable = true;
+      domains =
+        let
+          selectors = {
+            "rsa-1024".keyFile = config.sops.secrets.dkim.path;
+          };
+          domains = map (domain: {
+            name = domain;
+            value = {
+              selectors = selectors;
+            };
+          }) config.mailserver.domains;
+        in
+        lib.listToAttrs domains;
+    };
     dmarcReporting.enable = true;
   };
 
@@ -42,8 +60,12 @@
     after = [ "kresd.target" ];
   };
 
-  users.users.${config.services.postfix.user}.extraGroups = [ config.security.acme.certs."thetwins.xyz".group ];
-  users.users.${config.services.dovecot2.user}.extraGroups = [ config.security.acme.certs."thetwins.xyz".group ];
+  users.users.${config.services.postfix.user}.extraGroups = [
+    config.security.acme.certs."thetwins.xyz".group
+  ];
+  users.users.${config.services.dovecot2.settings.default_internal_user}.extraGroups = [
+    config.security.acme.certs."thetwins.xyz".group
+  ];
 
   services.redis = {
     vmOverCommit = true;
@@ -61,8 +83,8 @@
 
   sops.secrets = {
     "dovecot/generic" = {
-      owner = config.services.dovecot2.user;
-      group = config.services.dovecot2.group;
+      owner = config.services.dovecot2.settings.default_internal_user;
+      group = config.services.dovecot2.settings.default_internal_group;
       reloadUnits = [ "dovecot.service" ];
       sopsFile = ../../../secrets/dovecot.yaml;
     };
@@ -71,7 +93,6 @@
       group = config.services.rspamd.group;
       restartUnits = [ "rspamd.service" ];
       sopsFile = ../../../secrets/dkim.yaml;
-      path = "${config.mailserver.dkimKeyDirectory}/thetwins.xyz.${config.mailserver.dkimSelector}.key";
     };
   };
 
@@ -91,21 +112,22 @@
     };
   };
 
-  unimatrix-01.backups.mail = {
-    source_directories = [
-      config.mailserver.mailDirectory
-      config.mailserver.sieveDirectory
-      config.mailserver.dkimKeyDirectory
-      "/var/lib/rspamd"
-      "/var/lib/redis-rspamd/dump.rdb"
-    ];
-    exclude_patterns = [
-      "${config.mailserver.mailDirectory}/*/*/mail/tmp"
-      "${config.mailserver.mailDirectory}/*/*/mail/dovecot-uidlist.lock"
-      config.sops.secrets.dkim.path
-      "/var/lib/rspamd/*.hs"
-      "/var/lib/rspamd/*.hsmp"
-      "/var/lib/rspamd/*.map"
-    ];
-  };
+  unimatrix-01.backups.mail =
+    let
+      rspamd_dir = "/var/lib/rspamd";
+    in
+    {
+      source_directories = [
+        config.mailserver.storage.path
+        rspamd_dir
+        "/var/lib/redis-rspamd/dump.rdb"
+      ];
+      exclude_patterns = [
+        "${config.mailserver.storage.path}/*/*/mail/tmp"
+        "${config.mailserver.storage.path}/*/*/mail/dovecot-uidlist.lock"
+        "${rspamd_dir}/*.hs"
+        "${rspamd_dir}/*.hsmp"
+        "${rspamd_dir}/*.map"
+      ];
+    };
 }
