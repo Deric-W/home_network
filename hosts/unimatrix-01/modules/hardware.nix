@@ -1,4 +1,4 @@
-{ ... }:
+{ inputs, pkgs, ... }:
 let
   btrfs-options = [ "defaults" "noatime" "nodiscard" "barrier" ];
   xfs-options = [ "defaults" "noatime" "nodiscard" ];
@@ -6,6 +6,21 @@ let
 in
 {
   boot = {
+    # remove when nixos-hardware has a binary cache
+    kernelPackages =
+      let
+        crossPkgs = import pkgs.path {
+          localSystem = "x86_64-linux";
+          crossSystem = pkgs.stdenv.hostPlatform.system;
+        };
+        rpi4-kernel =
+          crossPkgs.callPackage (inputs.nixos-hardware.outPath + "/raspberry-pi/common/kernel.nix")
+            {
+              rpiVersion = 4;
+            };
+      in
+      crossPkgs.linuxPackagesFor rpi4-kernel;
+
     initrd.availableKernelModules = [ "usbhid" "usb_storage" ];
     kernelParams = [
       "8250.nr_uarts=1"
