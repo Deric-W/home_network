@@ -27,6 +27,7 @@
         generic.nixosModules.user
         generic.nixosModules.adminUser
         ../../services/sshd.nix
+        ../../modules/remote-builders.nix
       ];
     };
   };

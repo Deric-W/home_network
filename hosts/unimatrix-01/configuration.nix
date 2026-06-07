@@ -39,5 +39,7 @@
       };
       registry = lib.mapAttrs (_: value: { flake = value; }) inputs;
     };
+
+    home-network.remote-builders.enable = true;
   };
 }
