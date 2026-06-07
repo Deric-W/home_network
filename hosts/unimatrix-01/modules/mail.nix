@@ -93,6 +93,7 @@
       group = config.services.rspamd.group;
       restartUnits = [ "rspamd.service" ];
       sopsFile = ../../../secrets/dkim.yaml;
+      path = "${config.mailserver.dkim.keyDirectory}/rsa-2048.key";
     };
   };
 
