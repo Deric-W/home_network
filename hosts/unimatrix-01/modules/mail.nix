@@ -33,7 +33,7 @@
       domains =
         let
           selectors = {
-            "rsa-1024".keyFile = config.sops.secrets.dkim.path;
+            "rsa-2048".keyFile = config.sops.secrets.dkim.path;
           };
           domains = map (domain: {
             name = domain;
