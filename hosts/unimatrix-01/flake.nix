@@ -15,10 +15,9 @@
       url = "gitlab:simple-nixos-mailserver/nixos-mailserver/nixos-26.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    generic.url = "../../users/Generic";
   };
 
-  outputs = { self, nixpkgs, nixos-hardware, sops-nix, nixos-mailserver, generic }@inputs: {
+  outputs = { self, nixpkgs, nixos-hardware, sops-nix, nixos-mailserver }@inputs: {
     nixosConfigurations."unimatrix-01" = nixpkgs.lib.nixosSystem {
       system = "aarch64-linux";
       specialArgs = { inherit inputs; };
@@ -27,10 +26,9 @@
         nixos-hardware.nixosModules.raspberry-pi-4
         sops-nix.nixosModules.sops
         nixos-mailserver.nixosModule
-        generic.nixosModules.user
-        generic.nixosModules.adminUser
         ../../services/sshd.nix
         ../../modules/remote-builders.nix
+        ../../modules/users/Generic/adminUser.nix
       ];
     };
   };
