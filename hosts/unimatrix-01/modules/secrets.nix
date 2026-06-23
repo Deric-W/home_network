@@ -1,4 +1,4 @@
-{ config, ... }:
+{ config, pkgs, inputs, ... }:
 with builtins;
 {
   config = {
@@ -6,7 +6,11 @@ with builtins;
       device = "/dev/disk/by-label/secrets";
       fsType = "f2fs";
       neededForBoot = true;
-      options = [ "defaults" "noatime" "ro" ];
+      options = [
+        "defaults"
+        "noatime"
+        "ro"
+      ];
     };
 
     services.openssh.hostKeys = [
@@ -21,10 +25,26 @@ with builtins;
       }
     ];
 
-    sops.age = let ed25519Keys = filter (key: key.type == "ed25519") config.services.openssh.hostKeys; in {
-      sshKeyPaths = map (key: key.path) ed25519Keys;
-      keyFile = "/var/lib/sops-nix/key.txt";
-      generateKey = true;
+    sops = {
+      # remove when sops-nix has a binary cache
+      package =
+        let
+          fastest-builder = head (sort (a: b: b.speedFactor lessThan a.speedFactor) config.nix.buildMachines);
+          crossPkgs = import pkgs.path {
+            localSystem = fastest-builder.system;
+            crossSystem = pkgs.stdenv.hostPlatform.system;
+          };
+        in
+        (import (inputs.sops-nix.outPath + "/default.nix") { pkgs = crossPkgs; }).sops-install-secrets;
+      age =
+        let
+          ed25519Keys = filter (key: key.type == "ed25519") config.services.openssh.hostKeys;
+        in
+        {
+          sshKeyPaths = map (key: key.path) ed25519Keys;
+          keyFile = "/var/lib/sops-nix/key.txt";
+          generateKey = true;
+        };
     };
 
     unimatrix-01.backups.secrets = {
