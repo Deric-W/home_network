@@ -1,4 +1,5 @@
-{ inputs, pkgs, ... }:
+{ inputs, pkgs, config, ... }:
+with builtins;
 let
   btrfs-options = [
     "defaults"
@@ -21,8 +22,9 @@ in
     # remove when nixos-hardware has a binary cache
     kernelPackages =
       let
+        fastest-builder = head (sort (a: b: b.speedFactor lessThan a.speedFactor) config.nix.buildMachines);
         crossPkgs = import pkgs.path {
-          localSystem = "x86_64-linux";
+          localSystem = fastest-builder.system;
           crossSystem = pkgs.stdenv.hostPlatform.system;
         };
         rpi4-kernel =
