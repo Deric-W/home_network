@@ -36,6 +36,7 @@ in
       crossPkgs.linuxPackagesFor rpi4-kernel;
 
     initrd.availableKernelModules = [
+      "xhci_pci"
       "usbhid"
       "usb_storage"
     ];
