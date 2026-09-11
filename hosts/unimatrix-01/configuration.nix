@@ -1,4 +1,9 @@
-{ inputs, lib, pkgs, ... }:
+{
+  inputs,
+  lib,
+  pkgs,
+  ...
+}:
 {
   imports = [
     ./modules/hardware.nix
@@ -31,7 +36,10 @@
     users.mutableUsers = false;
 
     nix = {
-      settings.experimental-features = [ "nix-command" "flakes" ];
+      settings.experimental-features = [
+        "nix-command"
+        "flakes"
+      ];
       gc = {
         automatic = true;
         dates = "weekly";
@@ -39,6 +47,8 @@
       };
       registry = lib.mapAttrs (_: value: { flake = value; }) inputs;
     };
+
+    nixpkgs.hostPlatform = "aarch64-linux";
 
     home-network.remote-builders.enable = true;
   };

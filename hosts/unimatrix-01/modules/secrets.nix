@@ -1,4 +1,9 @@
-{ config, pkgs, inputs, ... }:
+{
+  config,
+  inputs,
+  home-network-lib,
+  ...
+}:
 with builtins;
 {
   config = {
@@ -29,11 +34,7 @@ with builtins;
       # remove when sops-nix has a binary cache
       package =
         let
-          fastest-builder = head (sort (a: b: b.speedFactor lessThan a.speedFactor) config.nix.buildMachines);
-          crossPkgs = import pkgs.path {
-            localSystem = fastest-builder.system;
-            crossSystem = pkgs.stdenv.hostPlatform.system;
-          };
+          crossPkgs = home-network-lib.remote-builders.fastest-crossPkgs config;
         in
         (import (inputs.sops-nix.outPath + "/default.nix") { pkgs = crossPkgs; }).sops-install-secrets;
       age =

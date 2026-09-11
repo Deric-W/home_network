@@ -17,19 +17,29 @@
     };
   };
 
-  outputs = { self, nixpkgs, nixos-hardware, sops-nix, nixos-mailserver }@inputs: {
-    nixosConfigurations."unimatrix-01" = nixpkgs.lib.nixosSystem {
-      system = "aarch64-linux";
-      specialArgs = { inherit inputs; };
-      modules = [
-        ./configuration.nix
-        nixos-hardware.nixosModules.raspberry-pi-4
-        sops-nix.nixosModules.sops
-        nixos-mailserver.nixosModule
-        ../../services/sshd.nix
-        ../../modules/remote-builders.nix
-        ../../modules/users/Generic/adminUser.nix
-      ];
+  outputs =
+    {
+      self,
+      nixpkgs,
+      nixos-hardware,
+      sops-nix,
+      nixos-mailserver,
+    }@inputs:
+    {
+      nixosConfigurations."unimatrix-01" = nixpkgs.lib.nixosSystem {
+        specialArgs = {
+          inherit inputs;
+          home-network-lib = import ../../lib { inherit nixpkgs; };
+        };
+        modules = [
+          ./configuration.nix
+          nixos-hardware.nixosModules.raspberry-pi-4
+          sops-nix.nixosModules.sops
+          nixos-mailserver.nixosModule
+          ../../services/sshd.nix
+          ../../modules/remote-builders.nix
+          ../../modules/users/Generic/adminUser.nix
+        ];
+      };
     };
-  };
 }

@@ -1,5 +1,9 @@
-{ inputs, pkgs, config, ... }:
-with builtins;
+{
+  inputs,
+  config,
+  home-network-lib,
+  ...
+}:
 let
   btrfs-options = [
     "defaults"
@@ -22,11 +26,7 @@ in
     # remove when nixos-hardware has a binary cache
     kernelPackages =
       let
-        fastest-builder = head (sort (a: b: b.speedFactor lessThan a.speedFactor) config.nix.buildMachines);
-        crossPkgs = import pkgs.path {
-          localSystem = fastest-builder.system;
-          crossSystem = pkgs.stdenv.hostPlatform.system;
-        };
+        crossPkgs = home-network-lib.remote-builders.fastest-crossPkgs config;
         rpi4-kernel =
           crossPkgs.callPackage (inputs.nixos-hardware.outPath + "/raspberry-pi/common/kernel.nix")
             {
