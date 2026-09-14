@@ -1,18 +1,28 @@
-{ pkgs, config, lib, ... }:
-with builtins;
+{
+  pkgs,
+  config,
+  lib,
+  ...
+}:
 {
   config = {
     services.nextcloud = {
       enable = true;
-      package = pkgs.nextcloud33;
+      package = pkgs.nextcloud34;
       hostName = "nextcloud.thetwins.xyz";
       https = true;
       maxUploadSize = "16G";
       fastcgiTimeout = 1200;
       autoUpdateApps.enable = false;
       extraAppsEnable = true;
-      extraApps = with pkgs.nextcloud33Packages.apps; {
-        inherit calendar contacts forms polls phonetrack;
+      extraApps = {
+        inherit (pkgs.nextcloud34Packages.apps)
+          calendar
+          contacts
+          forms
+          polls
+          phonetrack
+          ;
       };
       notify_push = {
         enable = true;
@@ -115,19 +125,28 @@ with builtins;
     };
 
     systemd.services."nextcloud-setup" = {
-      requires = [ "postgresql.target" "redis-nextcloud.service" ];
-      after = [ "postgresql.target" "redis-nextcloud.service" ];
+      requires = [
+        "postgresql.target"
+        "redis-nextcloud.service"
+      ];
+      after = [
+        "postgresql.target"
+        "redis-nextcloud.service"
+      ];
     };
 
     services.redis.servers.nextcloud = {
       enable = true;
       user = "nextcloud";
       port = 0;
-      save = [];
+      save = [ ];
       databases = 1;
     };
 
-    networking.firewall.allowedTCPPorts = [ 80 443 ];
+    networking.firewall.allowedTCPPorts = [
+      80
+      443
+    ];
 
     services.fail2ban = {
       enable = true;
