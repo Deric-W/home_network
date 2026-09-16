@@ -22,6 +22,7 @@
           forms
           polls
           phonetrack
+          music
           ;
       };
       notify_push = {
